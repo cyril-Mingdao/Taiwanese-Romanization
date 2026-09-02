@@ -1578,6 +1578,185 @@ table.ho-t.rule-card { background: var(--bg-card); }
   .ans-sent { font-size: 0.86rem; }
 }
 
+/* 「（不變調）」原本兩處用不同顏色，其中一處是 --primary-light #ffe566，
+   白底上幾乎看不見。統一成中性深灰 —— 它跟深藍的「變調」是一組對照，
+   語意上是「沒有變化」，用低調的灰正好跟變調分開。白底對比度約 7:1。 */
+.no-sandhi { color: var(--text-secondary) !important; font-weight: 600; }
+
+/* 台語特色從原本 6 點加到 10 點之後跑版：v9 設的是
+     grid-auto-flow: column; grid-template-rows: repeat(3, auto);
+   3 列填滿就自己長出第 3、4 欄，而 grid-template-columns 只定義了兩欄，
+   多出來的欄寬由內容決定，於是變成 306/306/364/287 的四欄。
+   改排 5 列，維持兩欄、各佔一半，編號仍是左欄 1-5、右欄 6-10 直向讀。 */
+.features-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(5, auto);
+}
+@media (max-width: 640px) {
+  .features-list { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+}
+
+@media print {
+/* 列印版面。這份規則會被 build 展開成兩份：一份包在 @media print 裡，
+   一份掛在 body.printing 底下 —— 後者是為了能在螢幕上量測，
+   列印前才有辦法逐頁算出「剛好填滿 A4」的字級。
+
+   除了 .ho-page 自己的基準字級以外，所有尺寸一律用 em。
+   這樣只要改 .ho-page 的 font-size，整頁（字、間距、圖）就等比縮放，
+   JS 才有單一旋鈕可以調。7.8pt 約等於 2.753mm，所以 1mm ≈ 0.363em。 */
+
+.ho-page { font-size: 7.8pt; line-height: 1.28; }
+
+.ho-head { padding-bottom: 0.44em; margin-bottom: 0.65em; }
+.ho-school { font-size: 0.87em; }
+.ho-title { font-size: 1.47em; }
+.ho-title .num { font-size: 0.65em; }
+
+/* 班級／坐號／名姓／成績要在同一行。紙面只有 190mm，而 .ho-id 的填答線
+   是固定 7rem，四欄撐不下就換行，標籤還會被壓成直排（班／級 上下疊）。
+   改成四欄均分、不換行，標籤不折字。 */
+.ho-id {
+  padding: 0.29em 0.73em; margin-bottom: 0.65em;
+  flex-wrap: nowrap; gap: 0.5em;
+}
+.ho-id label {
+  font-size: 0.92em; flex: 1 1 0; min-width: 0;
+  white-space: nowrap; gap: 0.3em;
+}
+.ho-id input { width: 100%; min-width: 0; }
+
+.ho-note { margin: 0.18em 0; font-size: 1em; line-height: 1.3; }
+.ho-audio { font-size: 0.87em; padding: 0; }
+
+/* 列印沒有橫向捲動這回事，一律照紙寬排版。用 fixed 佈局才不會被某一格
+   撐爆 —— 第二題聽力表有 13 欄，auto 佈局時會排到 208mm，超出紙面被裁掉。 */
+.ho-tw { overflow: visible !important; margin: 0.44em 0; }
+#handout-app table.ho-t {
+  width: 100% !important;
+  max-width: 100% !important;
+  table-layout: fixed;
+}
+table.ho-t td { padding: 0.15em 0.29em; font-size: 0.92em; }
+table.ho-t img { max-width: 7.3em; }
+
+table.ho-v { min-width: 0 !important; }
+table.ho-v th { padding: 0.11em 0.29em; font-size: 0.8em; }
+table.ho-v td { padding: 0.11em 0.29em; font-size: 1em; }
+.v-pic { width: 5.5em; }
+.v-pic img { max-height: 4.4em; width: auto; margin: 0 auto; }
+.v-lab { font-size: 0.8em; }
+.v-rom { font-size: 1.05em; }
+.ans-sent { font-size: 0.92em; line-height: 1.3; }
+.ho-src { font-size: 0.74em; margin-top: 0.44em; }
+
+/* 填答欄的 min-width 在窄欄裡會把內容擠出格子（13 欄的聽力表就是這樣被撐到
+   超出紙寬），列印時解除，讓它照欄寬縮。 */
+.blank { padding: 0; min-width: 0 !important; width: 100% !important; }
+.tone-pair .blank { width: auto !important; min-width: 0 !important; }
+
+/* 印在紙上的提示字會蓋住學生要寫的位置，列印時不要顯示。
+   （螢幕上仍然看得到「寫台語漢字」的提示） */
+.blank::placeholder { color: transparent !important; opacity: 0 !important; }
+.blank::-webkit-input-placeholder { color: transparent !important; opacity: 0 !important; }
+
+/* 手寫要有空間。省下來的高度優先給真的要動筆的格子：
+   漢字格最大（要寫台語漢字），造句次之，調號只填一兩個數字給小格就好。 */
+.ho-onlywork .blank { height: 2.4em; }
+.v-rom .ho-onlywork .blank { height: 3.4em; }        /* 寫台語漢字 */
+.v-zh .blank, .v-tw .blank { height: 2.8em; }        /* 造句 */
+.v-base .ho-onlywork .blank,
+.v-sandhi .ho-onlywork .blank { height: 1.8em; }     /* 調號 */
+.tone-pair .blank { height: 1.8em; }
+table.ho-t .blank { height: 2.2em; }
+
+.ho-page { break-inside: avoid; }
+table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
+
+}
+
+/* 螢幕上模擬紙張，量測才準 */
+body.printing #handout-app { max-width: none; padding: 0; }
+body.printing .ho-page {
+  width: 190mm; margin: 0 auto; padding: 0;
+  border: 0; box-shadow: none; border-radius: 0;
+}
+body.printing .ho-bar, body.printing .ho-nav,
+body.printing .ho-arrow, body.printing header { display: none !important; }
+/* 列印版面。這份規則會被 build 展開成兩份：一份包在 @media print 裡，
+   一份掛在 body.printing 底下 —— 後者是為了能在螢幕上量測，
+   列印前才有辦法逐頁算出「剛好填滿 A4」的字級。
+
+   除了 .ho-page 自己的基準字級以外，所有尺寸一律用 em。
+   這樣只要改 .ho-page 的 font-size，整頁（字、間距、圖）就等比縮放，
+   JS 才有單一旋鈕可以調。7.8pt 約等於 2.753mm，所以 1mm ≈ 0.363em。 */
+
+body.printing .ho-page { font-size: 7.8pt; line-height: 1.28; }
+
+body.printing .ho-head { padding-bottom: 0.44em; margin-bottom: 0.65em; }
+body.printing .ho-school { font-size: 0.87em; }
+body.printing .ho-title { font-size: 1.47em; }
+body.printing .ho-title .num { font-size: 0.65em; }
+
+/* 班級／坐號／名姓／成績要在同一行。紙面只有 190mm，而 .ho-id 的填答線
+   是固定 7rem，四欄撐不下就換行，標籤還會被壓成直排（班／級 上下疊）。
+   改成四欄均分、不換行，標籤不折字。 */
+body.printing .ho-id {
+  padding: 0.29em 0.73em; margin-bottom: 0.65em;
+  flex-wrap: nowrap; gap: 0.5em;
+}
+body.printing .ho-id label {
+  font-size: 0.92em; flex: 1 1 0; min-width: 0;
+  white-space: nowrap; gap: 0.3em;
+}
+body.printing .ho-id input { width: 100%; min-width: 0; }
+
+body.printing .ho-note { margin: 0.18em 0; font-size: 1em; line-height: 1.3; }
+body.printing .ho-audio { font-size: 0.87em; padding: 0; }
+
+/* 列印沒有橫向捲動這回事，一律照紙寬排版。用 fixed 佈局才不會被某一格
+   撐爆 —— 第二題聽力表有 13 欄，auto 佈局時會排到 208mm，超出紙面被裁掉。 */
+body.printing .ho-tw { overflow: visible !important; margin: 0.44em 0; }
+body.printing #handout-app table.ho-t {
+  width: 100% !important;
+  max-width: 100% !important;
+  table-layout: fixed;
+}
+body.printing table.ho-t td { padding: 0.15em 0.29em; font-size: 0.92em; }
+body.printing table.ho-t img { max-width: 7.3em; }
+
+body.printing table.ho-v { min-width: 0 !important; }
+body.printing table.ho-v th { padding: 0.11em 0.29em; font-size: 0.8em; }
+body.printing table.ho-v td { padding: 0.11em 0.29em; font-size: 1em; }
+body.printing .v-pic { width: 5.5em; }
+body.printing .v-pic img { max-height: 4.4em; width: auto; margin: 0 auto; }
+body.printing .v-lab { font-size: 0.8em; }
+body.printing .v-rom { font-size: 1.05em; }
+body.printing .ans-sent { font-size: 0.92em; line-height: 1.3; }
+body.printing .ho-src { font-size: 0.74em; margin-top: 0.44em; }
+
+/* 填答欄的 min-width 在窄欄裡會把內容擠出格子（13 欄的聽力表就是這樣被撐到
+   超出紙寬），列印時解除，讓它照欄寬縮。 */
+body.printing .blank { padding: 0; min-width: 0 !important; width: 100% !important; }
+body.printing .tone-pair .blank { width: auto !important; min-width: 0 !important; }
+
+/* 印在紙上的提示字會蓋住學生要寫的位置，列印時不要顯示。
+   （螢幕上仍然看得到「寫台語漢字」的提示） */
+body.printing .blank::placeholder { color: transparent !important; opacity: 0 !important; }
+body.printing .blank::-webkit-input-placeholder { color: transparent !important; opacity: 0 !important; }
+
+/* 手寫要有空間。省下來的高度優先給真的要動筆的格子：
+   漢字格最大（要寫台語漢字），造句次之，調號只填一兩個數字給小格就好。 */
+body.printing .ho-onlywork .blank { height: 2.4em; }
+body.printing .v-rom .ho-onlywork .blank { height: 3.4em; }        /* 寫台語漢字 */
+body.printing .v-zh .blank, body.printing .v-tw .blank { height: 2.8em; }        /* 造句 */
+body.printing .v-base .ho-onlywork .blank
+body.printing .v-sandhi .ho-onlywork .blank { height: 1.8em; }     /* 調號 */
+body.printing .tone-pair .blank { height: 1.8em; }
+body.printing table.ho-t .blank { height: 2.2em; }
+
+body.printing .ho-page { break-inside: avoid; }
+body.printing table.ho-v tbody, body.printing .ho-tw, body.printing .word-card { break-inside: avoid; }
+
 </style>
 </head>
 <body>
@@ -1702,7 +1881,7 @@ table.ho-t.rule-card { background: var(--bg-card); }
                                             <span>聲母: l</span>
                                             <span>韻母: iông</span>
                                             <span>本調: 5</span>
-                                            <span style="color: var(--gold);">（不變調）</span>
+                                            <span class="no-sandhi">（不變調）</span>
                                         </div>
                                     </div>
                                 </div>
@@ -1834,6 +2013,13 @@ table.ho-t.rule-card { background: var(--bg-card); }
                         <span class="tone-change">1變7</span>
                         <div class="example">1. 我感覺山豬仔肉較好食<br>2. 伊的豬仔，逐隻都飼甲肥朒朒</div>
                     </div>
+                    <div class="word-card">
+                        <div class="word">偷提</div>
+                        <div class="romanization">thau-the̍h</div>
+                        <span class="tone-change">1變7</span>
+                        <div class="example">1. 伊共人的物件偷提去，予人掠著矣<br>2. 別人的物件毋通偷提</div>
+                    </div>
+
                     <div class="word-card">
                         <div class="word">籃仔</div>
                         <div class="romanization">nâ-á</div>
@@ -2168,6 +2354,18 @@ table.ho-t.rule-card { background: var(--bg-card); }
                         <div class="example">1. 阿母咧偝囡仔去菜市仔<br>2. 以早的人攏用揹巾偝囡仔</div>
                     </div>
                     <div class="word-card">
+                        <div class="word">aunn-aunn 叫</div>
+                        <div class="romanization">aunn-aunn-kiò</div>
+                        <span class="tone-change">1變7</span>
+                        <div class="example">1. 貓仔腹肚枵，佇門口 aunn-aunn 叫<br>2. 暗時聽著貓仔 aunn-aunn 叫，聽著會驚</div>
+                    </div>
+                    <div class="word-card">
+                        <div class="word">喓</div>
+                        <div class="romanization">iaunn</div>
+                        <span class="tone-change">單字不變調</span>
+                        <div class="example">1. 阿爸共嬰仔攑懸懸，喙裡喝 iaunn<br>2. 大人上愛用「喓」共紅嬰仔𨑨迌</div>
+                    </div>
+                    <div class="word-card">
                         <div class="word">影片</div>
                         <div class="romanization">iánn-phìnn</div>
                         <span class="tone-change">2變1</span>
@@ -2468,6 +2666,12 @@ table.ho-t.rule-card { background: var(--bg-card); }
                         <div class="example">1. 逐工透早阿公攏會去沃花<br>2. 天氣傷熱，花愛較捷沃咧</div>
                     </div>
                     <div class="word-card">
+                        <div class="word">沃水</div>
+                        <div class="romanization">ak tsuí</div>
+                        <span class="tone-change">4變8</span>
+                        <div class="example">1. 透早阿公咧共花沃水<br>2. 這欉樹仔規禮拜無沃水矣</div>
+                    </div>
+                    <div class="word-card">
                         <div class="word">竹筍</div>
                         <div class="romanization">tik-sún</div>
                         <span class="tone-change">4變8</span>
@@ -2492,7 +2696,26 @@ table.ho-t.rule-card { background: var(--bg-card); }
                         <div class="example">1. 過年的時陣，大人愛拍麻雀<br>2. 這副麻雀是新買的</div>
                     </div>
                 </div>
-</div></section>
+</div>
+            <div class="slide">
+                <h2>聲化韻母</h2>
+                <p>m、ng 這兩个字母家己就會當成一个音節，發音的時陣氣流對鼻空出來，毋免閣配別的元音。</p>
+                <div class="word-examples">
+                    <div class="word-card">
+                        <div class="word">毋通</div>
+                        <div class="romanization">m̄-thang</div>
+                        <span class="tone-change">7變3</span>
+                        <div class="example">1. 過馬路的時陣毋通看手機仔<br>2. 杯底毋通飼金魚</div>
+                    </div>
+                    <div class="word-card">
+                        <div class="word">徛黃</div>
+                        <div class="romanization">khiā-n̂g</div>
+                        <span class="tone-change">7變3</span>
+                        <div class="example">1. 一日徙栽，三日徛黃<br>2. 這欉樹仔拄徙來，猶咧徛黃</div>
+                    </div>
+                </div>
+            </div>
+</section>
 
         <!-- 聲調 Section -->
         <section id="tones" class="section">
@@ -2651,7 +2874,7 @@ table.ho-t.rule-card { background: var(--bg-card); }
                             <div class="chinese">趖</div>
                             <div class="components">
                                 <span>本調: 5</span>
-                                <span style="color: var(--primary-light);">（不變調）</span>
+                                <span class="no-sandhi">（不變調）</span>
                             </div>
                         </div>
                     </div>
@@ -3213,20 +3436,67 @@ table.ho-t.rule-card { background: var(--bg-card); }
     cur = 0; renderPage(); setMode(mode);
   }
 
-  /* 列印：印全部時先把 27 頁都攤出來，印完復原 */
-  function printPages(all) {
-    if (!all) { window.print(); return; }
-    var body = app.querySelector('.ho-body');
-    var keep = body.innerHTML, keepCur = cur;
-    var html = '';
-    for (var i = 0; i < D.units.length; i++) {
-      cur = i; renderPage();
-      html += body.querySelector('.ho-page').outerHTML;
+  /* ---------- 列印 ----------
+     每一頁的內容多寡差很多（《相對音感》塞滿，《隨前變調》只有一半），
+     用同一個字級印，短的那些頁下半張全是空白。所以列印前逐頁算出
+     「剛好填滿 A4」的基準字級 —— 版面的每個尺寸都是相對 .ho-page 的 em，
+     調這一個字級就能等比放大整頁。 */
+  var A4_H_MM = 273;                       // A4 直式扣掉 @page 的 12mm 上下邊界
+  var MM = 96 / 25.4;                      // 1mm 幾 px（CSS 定義的 96dpi）
+  var PT_MIN = 6.5, PT_MAX = 15;
+
+  function fitPage(page) {
+    var limit = A4_H_MM * MM;
+    var lo = PT_MIN, hi = PT_MAX, best = PT_MIN;
+    // 二分搜尋：找出塞得下的最大字級。10 次已經精確到 0.01pt
+    for (var k = 0; k < 10; k++) {
+      var mid = (lo + hi) / 2;
+      page.style.fontSize = mid + 'pt';
+      if (page.getBoundingClientRect().height <= limit) { best = mid; lo = mid; }
+      else hi = mid;
     }
-    body.innerHTML = html;
+    page.style.fontSize = best + 'pt';
+  }
+
+  var fitted = false;
+  function beforePrint() {
+    if (fitted) return;
+    document.body.classList.add('printing');
+    // 量測要在 printing 版面下做，.ho-page 這時已是 190mm 寬（跟紙一樣）
+    var pages = app.querySelectorAll('.ho-page');
+    for (var i = 0; i < pages.length; i++) fitPage(pages[i]);
+    fitted = true;
+  }
+  function afterPrint() {
+    document.body.classList.remove('printing');
+    var pages = app.querySelectorAll('.ho-page');
+    for (var i = 0; i < pages.length; i++) pages[i].style.fontSize = '';
+    fitted = false;
+  }
+  // 使用者直接按 Ctrl+P 也要套用（不會經過下面的按鈕）
+  window.addEventListener('beforeprint', beforePrint);
+  window.addEventListener('afterprint', afterPrint);
+
+  function printPages(all) {
+    var body = app.querySelector('.ho-body');
+    var keep = null, keepCur = cur;
+
+    if (all) {
+      keep = body.innerHTML;
+      var html = '';
+      for (var i = 0; i < D.units.length; i++) {
+        cur = i; renderPage();
+        html += body.querySelector('.ho-page').outerHTML;
+      }
+      body.innerHTML = html;
+    }
+
+    // 先排好版再叫列印：有些瀏覽器在 beforeprint 裡改 DOM 來不及反映到這一次
+    beforePrint();
     window.addEventListener('afterprint', function restore() {
       window.removeEventListener('afterprint', restore);
-      cur = keepCur; body.innerHTML = keep; renderPage();
+      afterPrint();
+      if (keep !== null) { cur = keepCur; body.innerHTML = keep; renderPage(); }
     });
     window.print();
   }
