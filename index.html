@@ -3523,39 +3523,53 @@ body.printing table.ho-v tbody, body.printing .ho-tw, body.printing .word-card {
     go(prev ? cur - 1 : cur + 1);
   }, true);
 
-  /* ---------- 手機滑動翻頁（v25）----------
-     學習區本來就有左右滑翻頁（見上面 v9 那段 touchstart/touchend，它遇到講義區會
-     直接 return），講義區之前只有鍵盤、上下頁鈕與側邊箭頭。這裡補上，並且比學習區
-     多守三件事，否則學生在手機上會沒辦法作答、也沒辦法看寬表格：
-       1. 起點在填答欄／造句欄／按鈕／連結裡 → 不攔，那是在選字或移游標。
-       2. 直的位移比橫的大 → 那是在捲頁，不是翻頁。
-       3. 起點落在可橫向捲動的表格裡、而且那個方向還捲得動 → 讓表格自己捲，
-          捲到底了才換成翻頁。窄畫面的例詞表與聽力表都是 overflow-x: auto。 */
-  var swX = 0, swY = 0, swOn = false, swBox = null;
+  /* ---------- 手機滑動翻頁（v25 加入，v26 改嚴）----------
+     v25 的版本在手機上「捲寬表格」會誤翻頁：例詞表與聽力表在窄畫面是橫向捲動的，
+     學生撥滑軌看右半邊，一捲到底就跳頁。v26 改成四道關卡：
+       1. 起點若落在任何真的能橫向捲動的容器裡 → 完全不翻頁（不再有「捲到底就翻」
+          這條，那正是誤觸的來源）。用量的（scrollWidth > clientWidth 且 overflow-x
+          是 auto/scroll）往上找，不綁 class 名稱。
+       2. 起點在填答欄／造句欄／按鈕／連結裡 → 不攔，那是在選字或移游標。
+       3. 手勢期間畫面若上下捲動過 → 那是在捲頁，不是翻頁。
+       4. 要是「撥」不是「拖」：橫移 ≥ 80px、橫移大於直移 3 倍、且 800ms 內完成。
+     雙指（縮放）不管中途才加入都取消。 */
+  var swX = 0, swY = 0, swScrollY = 0, swTime = 0, swOn = false;
+  function swScroller(el) {
+    for (var n = el; n && n !== document.body; n = n.parentElement) {
+      if (n.scrollWidth > n.clientWidth + 2) {
+        var ox = getComputedStyle(n).overflowX;
+        if (ox === 'auto' || ox === 'scroll') return n;
+      }
+    }
+    return null;
+  }
   document.addEventListener('touchstart', function (e) {
     swOn = false;
     if (!document.body.classList.contains('zone-handout')) return;
-    if (e.touches.length !== 1) return;            // 雙指縮放不算
+    if (e.touches.length !== 1) return;
     var t = e.target;
-    if (t && t.closest && t.closest('input, textarea, select, [contenteditable], button, a')) return;
+    if (!t || !t.closest) return;
+    if (t.closest('input, textarea, select, [contenteditable], button, a')) return;
+    if (swScroller(t)) return;                   // 起點在滑軌上，交給它自己捲
     swX = e.touches[0].clientX;
     swY = e.touches[0].clientY;
-    swBox = (t && t.closest) ? t.closest('.ho-tw') : null;
+    swScrollY = window.scrollY;
+    swTime = Date.now();
     swOn = true;
+  }, { passive: true });
+  document.addEventListener('touchmove', function (e) {
+    if (swOn && e.touches.length > 1) swOn = false;   // 中途變成雙指縮放
   }, { passive: true });
   document.addEventListener('touchend', function (e) {
     if (!swOn) return;
     swOn = false;
+    if (Math.abs(window.scrollY - swScrollY) > 8) return;   // 這一下是在捲頁
+    if (Date.now() - swTime > 800) return;                  // 慢慢拖不算翻頁
     var dx = e.changedTouches[0].clientX - swX;
     var dy = e.changedTouches[0].clientY - swY;
-    if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 2) return;
-    if (swBox && swBox.scrollWidth > swBox.clientWidth + 1) {
-      var room = dx < 0
-        ? swBox.scrollWidth - swBox.clientWidth - swBox.scrollLeft   // 還能往右捲
-        : swBox.scrollLeft;                                          // 還能往左捲
-      if (room > 1) return;
-    }
-    go(dx < 0 ? cur + 1 : cur - 1);              // 手指往左滑 = 下一頁
+    if (Math.abs(dx) < 80) return;
+    if (Math.abs(dx) < Math.abs(dy) * 3) return;
+    go(dx < 0 ? cur + 1 : cur - 1);              // 手指往左撥 = 下一頁
   }, { passive: true });
 
   /* ---------- 兩區切換 ---------- */
