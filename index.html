@@ -1,9 +1,31 @@
 <!DOCTYPE html>
+<!--
+  ============================================================
+  台語羅馬字拼音系統（Tâi-lô Phing-im）v27
+  單檔離線教材：自學簡報區 ＋《台羅拼音系統學思達講義》27 單元網頁版
+
+  Copyright © 2026 詹宗龍（Tsiam Tsong-liông），臺中明道中學。
+  保留所有權利 All rights reserved.
+
+  授權範圍：僅授權校內／課堂教學使用（可自由播放、列印、發給學生）。
+  未經作者書面同意，不得改作、再散布、公開轉載或用於任何商業用途。
+
+  第三方素材：
+    - 例詞圖與變調環圖：由 Noun Project 合法授權予詹宗龍使用，
+      不隨本檔另行授權他人使用。
+    - Tauhu Oo 字型（tauhu-oo-font.js）：依其原授權條款使用。
+    - 發音音檔：教育部《臺灣台語常用詞辭典》（sutian.moe.edu.tw）等遠端來源，
+      本檔僅內嵌索引，著作權歸原權利人。
+  ============================================================
+-->
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>台羅拼音系統 | Tâi-lô Phing-im</title>
+    <meta name="author" content="詹宗龍（臺中明道中學）">
+    <meta name="copyright" content="© 2026 詹宗龍，臺中明道中學。保留所有權利。">
+    <meta name="description" content="台語羅馬字拼音系統：自學簡報與學思達講義 27 單元互動練習，可離線使用、可列印 A4。">
     <!-- Google Fonts 已移除（v11）：全站統一 tauhu-oo，留著只會拖慢離線載入 -->
     <!-- 字型外掛（v24）：defer 不擋 HTML 解析。原本這裡還有一條
          https://tauhu.tw/tauhu-oo.css 的外部樣式表，字型明明已經在本機，
@@ -1335,24 +1357,6 @@ body.mode-teach .ho-onlywork { display: none; }
   .ho-sel { min-width: 0; flex: 1 1 100%; }
 }
 
-/* ===================== 列印：A4 一頁一單元 ===================== */
-@media print {
-  @page { size: A4 portrait; margin: 12mm 10mm; }
-  body { background: #fff !important; }
-  header, .edge-arrow, .ho-bar, .ho-nav, .zone-switch, #mainNav { display: none !important; }
-  body.zone-handout > main { display: none !important; }
-  #handout-app { max-width: none; padding: 0; }
-  .ho-page { border: 0; border-radius: 0; box-shadow: none; padding: 0;
-    margin: 0; page-break-after: always; }
-  .ho-page:last-child { page-break-after: auto; }
-  .ho-tw { overflow: visible; }
-  table.ho-v { min-width: 0; }
-  .blank { border-bottom: 1px solid #999; }
-  .ho-id input { border-bottom: 1px solid #999; }
-  a.ho-audio { border: 0; padding: 0; color: #555; }
-  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-}
-
 /* ===================== v11 版面調整 ===================== */
 
 /* 兩個新色，都是針對「白底＋黃主色」挑的：
@@ -1399,6 +1403,9 @@ h1 .byline {
 
 /* 頁尾圖片來源置中 */
 .ho-src { text-align: center; }
+
+/* 列印落款：只印在紙上。螢幕上標題列已有 .byline，不重複顯示。 */
+.ho-credit { display: none; }
 
 /* 變調規則牌不再用灰底，跟頁面背景一致 */
 table.ho-t.rule-card td,
@@ -1608,16 +1615,67 @@ table.ho-t.rule-card img { width: 94%; max-width: 94%; height: auto; }
   table.ho-t.rule-card { table-layout: fixed; }
 }
 
-@media print {
-/* 列印版面。這份規則會被 build 展開成兩份：一份包在 @media print 裡，
-   一份掛在 body.printing 底下 —— 後者是為了能在螢幕上量測，
-   列印前才有辦法逐頁算出「剛好填滿 A4」的字級。
+/* 螢幕上模擬紙張，量測才準。
+   版面規則本身在 #hoPrintCss（量測時 JS 把 media 切成 all），這裡只補「紙有多寬」——
+   列印時紙寬由 @page 決定，螢幕上得自己給，否則量出來的高度不是紙上的高度。
+   210mm 是整張 A4 的寬；左右各 10mm 的白邊是 .ho-page 自己的 padding。 */
+body.printing .ho-page { width: 210mm; margin: 0 auto; }
 
-   除了 .ho-page 自己的基準字級以外，所有尺寸一律用 em。
-   這樣只要改 .ho-page 的 font-size，整頁（字、間距、圖）就等比縮放，
-   JS 才有單一旋鈕可以調。7.8pt 約等於 2.753mm，所以 1mm ≈ 0.363em。 */
+</style>
+<!-- ===================== 列印版面：只寫一份 =====================
+     v26 以前這份規則是手抄兩份（一份包在 @media print、一份掛在 body.printing），
+     因為列印前得先在螢幕上量出「剛好填滿 A4」的字級。兩份必然走鐘 —— v26 的
+     body.printing 版就有一條漏了逗號（調號格），量測時算 2.4em、實際列印 1.8em，
+     於是字級挑得太小，印出來下半張一片空白。
+
+     v27 改成只留這一份 media="print" 的樣式表。量測時 JS 把它的 media 切成 "all"
+     （見 beforePrint／afterPrint），螢幕上套用的就是與紙上「完全同一份」規則，
+     不可能再走鐘。紙寬在螢幕上另由 body.printing 補（列印時紙寬是 @page 決定的）。
+
+     除了 .ho-page 自己的基準字級以外，所有尺寸一律用 em。
+     這樣只要改 .ho-page 的 font-size，整頁（字、間距、圖）就等比縮放，
+     JS 才有單一旋鈕可以調。7.8pt 約等於 2.753mm，所以 1mm ≈ 0.363em。 -->
+<style media="print" id="hoPrintCss">
+/* ---------- A4 一頁一單元 ---------- */
+/* 邊界收成 0 是為了「不要印頁首／頁尾」。Chrome 的日期＋標題、網址＋頁碼是畫在
+   @page 留下的邊界裡的，只要邊界是 0 就沒有地方畫。原本那 12mm/10mm 的白邊
+   改由 .ho-page 自己的 padding 撐出來，紙上的位置完全一樣。 */
+@page { size: A4 portrait; margin: 0; }
+body { background: #fff !important; }
+header, .edge-arrow, .ho-bar, .ho-nav, .zone-switch, #mainNav { display: none !important; }
+body.zone-handout > main { display: none !important; }
+#handout-app { max-width: none; padding: 0; }
+/* 一張 .ho-page ＝ 一張 A4。因為 @page 的邊界是 0（見上），白邊由這裡的 padding 給：
+     整頁 min-height 295mm（A4 297mm 留 2mm 餘裕 —— 有 page-break-after: always，
+     只要溢出一點點就會每頁多擠出一張空白紙）
+     扣掉上下各 12mm 的 padding ＝ 內容區 271mm，跟改版前完全一樣。
+   用 min-height 不用 height：萬一哪天有一頁連最小字級都塞不下（字型換了、
+   瀏覽器度量不同），頁面會照舊長出去、落款跟著跑到內容底部，不會壓在內容上。
+   整頁高度因此不再等於內容高度，JS 的 fitPage() 改量內容底緣（見 contentH）。
+   落款那一行的地盤由 fitPage 的 CREDIT_MM 從可用高度扣掉，不用 padding-bottom ——
+   加了 padding 反而讓最後一個元素的 margin-bottom 不再 collapse，整頁會多長 3mm。 */
+.ho-page { border: 0; border-radius: 0; box-shadow: none;
+  padding: 12mm 10mm;
+  margin: 0; page-break-after: always;
+  position: relative; box-sizing: border-box; min-height: 295mm; }
+.ho-page:last-child { page-break-after: auto; }
+.ho-tw { overflow: visible; }
+table.ho-v { min-width: 0; }
+.blank { border-bottom: 1px solid #999; }
+.ho-id input { border-bottom: 1px solid #999; }
+a.ho-audio { border: 0; padding: 0; color: #555; }
+* { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+/* ---------- 版面尺寸 ----------
+   全部用 em：只要改 .ho-page 的基準字級，整頁（字、間距、圖）就等比縮放，
+   fitPage() 才有單一旋鈕可調。7.8pt 約等於 2.753mm，所以 1mm ≈ 0.363em。 */
 
 .ho-page { font-size: 7.8pt; line-height: 1.28; }
+
+/* 製作者落款，貼在紙張右下角。字級用 em，跟著 .ho-page 的單一旋鈕等比縮放。
+   絕對定位的參考框是 .ho-page 的 padding box（含 padding 區），所以 right/bottom
+   要自己退回白邊的寬度，才會落在內容區的右下角、不貼到紙邊。 */
+.ho-credit { display: block; position: absolute; right: 10mm; bottom: 12mm;
+  font-size: 0.74em; color: #555; letter-spacing: 0.04em; }
 
 .ho-head { padding-bottom: 0.44em; margin-bottom: 0.65em; }
 .ho-school { font-size: 0.87em; }
@@ -1650,6 +1708,24 @@ table.ho-t.rule-card img { width: 94%; max-width: 94%; height: auto; }
 }
 table.ho-t td { padding: 0.15em 0.29em; font-size: 0.92em; }
 table.ho-t img { max-width: 7.3em; }
+
+/* 不要越過 @page 的左右邊界。
+   紙一定是 A4 直式，所以列印時會踩到前面那段 @media (orientation: portrait)
+   ——它把 td.nowrap／.v-rom／.ans-tone／.rom 設成 white-space: nowrap，
+   那是給螢幕用的（窄畫面寧可橫向捲動也不要把「4(hptk)」折成直行）。
+   但紙上沒有橫向捲動可以逃：長拼音（阿猴仔a-kâu--á、走去矣tsáu--khì--ah）
+   整串溢出格子後會伸出 @page 邊界（P.25《隨前變調》超出約 1.4mm）。
+   而且瀏覽器視窗多半是橫的，量測時那段規則不生效、列印時才生效 ——
+   量出來的高度就不是紙上的高度。兩個問題都由這條解決：列印一律允許斷行。
+   斷點會優先落在連字號，短內容（4(hptk)、5→7→3→2→1→7）根本不會斷。 */
+#handout-app table.ho-t td, #handout-app table.ho-t th,
+#handout-app table.ho-v td, #handout-app table.ho-v th,
+#handout-app table.ho-t td.nowrap,
+#handout-app .v-rom, #handout-app .ans-tone, #handout-app .rom {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
 /* 變調規則環要填滿它那一格。上面那條 max-width 是給表格裡零星的小圖用的，
    套到這張圖會把它縮成格子的兩成寬，四周一片空白。 */
 table.ho-t.rule-card img { width: 94%; max-width: 94%; height: auto; }
@@ -1686,95 +1762,6 @@ table.ho-t .blank { height: 2.2em; }
 
 .ho-page { break-inside: avoid; }
 table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
-
-}
-
-/* 螢幕上模擬紙張，量測才準 */
-body.printing #handout-app { max-width: none; padding: 0; }
-body.printing .ho-page {
-  width: 190mm; margin: 0 auto; padding: 0;
-  border: 0; box-shadow: none; border-radius: 0;
-}
-body.printing .ho-bar, body.printing .ho-nav,
-body.printing .ho-arrow, body.printing header { display: none !important; }
-/* 列印版面。這份規則會被 build 展開成兩份：一份包在 @media print 裡，
-   一份掛在 body.printing 底下 —— 後者是為了能在螢幕上量測，
-   列印前才有辦法逐頁算出「剛好填滿 A4」的字級。
-
-   除了 .ho-page 自己的基準字級以外，所有尺寸一律用 em。
-   這樣只要改 .ho-page 的 font-size，整頁（字、間距、圖）就等比縮放，
-   JS 才有單一旋鈕可以調。7.8pt 約等於 2.753mm，所以 1mm ≈ 0.363em。 */
-
-body.printing .ho-page { font-size: 7.8pt; line-height: 1.28; }
-
-body.printing .ho-head { padding-bottom: 0.44em; margin-bottom: 0.65em; }
-body.printing .ho-school { font-size: 0.87em; }
-body.printing .ho-title { font-size: 1.47em; }
-body.printing .ho-title .num { font-size: 0.65em; }
-
-/* 班級／坐號／名姓／成績要在同一行。紙面只有 190mm，而 .ho-id 的填答線
-   是固定 7rem，四欄撐不下就換行，標籤還會被壓成直排（班／級 上下疊）。
-   改成四欄均分、不換行，標籤不折字。 */
-body.printing .ho-id {
-  padding: 0.29em 0.73em; margin-bottom: 0.65em;
-  flex-wrap: nowrap; gap: 0.5em;
-}
-body.printing .ho-id label {
-  font-size: 0.92em; flex: 1 1 0; min-width: 0;
-  white-space: nowrap; gap: 0.3em;
-}
-body.printing .ho-id input { width: 100%; min-width: 0; }
-
-body.printing .ho-note { margin: 0.18em 0; font-size: 1em; line-height: 1.3; }
-body.printing .ho-audio { font-size: 0.87em; padding: 0; }
-
-/* 列印沒有橫向捲動這回事，一律照紙寬排版。用 fixed 佈局才不會被某一格
-   撐爆 —— 第二題聽力表有 13 欄，auto 佈局時會排到 208mm，超出紙面被裁掉。 */
-body.printing .ho-tw { overflow: visible !important; margin: 0.44em 0; }
-body.printing #handout-app table.ho-t {
-  width: 100% !important;
-  max-width: 100% !important;
-  table-layout: fixed;
-}
-body.printing table.ho-t td { padding: 0.15em 0.29em; font-size: 0.92em; }
-body.printing table.ho-t img { max-width: 7.3em; }
-/* 變調規則環要填滿它那一格。上面那條 max-width 是給表格裡零星的小圖用的，
-   套到這張圖會把它縮成格子的兩成寬，四周一片空白。 */
-body.printing table.ho-t.rule-card img { width: 94%; max-width: 94%; height: auto; }
-
-body.printing table.ho-v { min-width: 0 !important; }
-body.printing table.ho-v th { padding: 0.11em 0.29em; font-size: 0.8em; }
-body.printing table.ho-v td { padding: 0.11em 0.29em; font-size: 1em; }
-body.printing .v-pic { width: 5.5em; }
-body.printing .v-pic img { max-height: 4.4em; width: auto; margin: 0 auto; }
-body.printing .v-lab { font-size: 0.8em; }
-body.printing .v-rom { font-size: 1.05em; }
-body.printing .ans-sent { font-size: 0.92em; line-height: 1.3; }
-body.printing .ho-src { font-size: 0.74em; margin-top: 0.44em; }
-
-/* 填答欄的 min-width 在窄欄裡會把內容擠出格子（13 欄的聽力表就是這樣被撐到
-   超出紙寬），列印時解除，讓它照欄寬縮。 */
-body.printing .blank { padding: 0; min-width: 0 !important; width: 100% !important; }
-body.printing .tone-pair .blank { width: auto !important; min-width: 0 !important; }
-
-/* 印在紙上的提示字會蓋住學生要寫的位置，列印時不要顯示。
-   （螢幕上仍然看得到「寫台語漢字」的提示） */
-body.printing .blank::placeholder { color: transparent !important; opacity: 0 !important; }
-body.printing .blank::-webkit-input-placeholder { color: transparent !important; opacity: 0 !important; }
-
-/* 手寫要有空間。省下來的高度優先給真的要動筆的格子：
-   漢字格最大（要寫台語漢字），造句次之，調號只填一兩個數字給小格就好。 */
-body.printing .ho-onlywork .blank { height: 2.4em; }
-body.printing .v-rom .ho-onlywork .blank { height: 3.4em; }        /* 寫台語漢字 */
-body.printing .v-zh .blank, body.printing .v-tw .blank { height: 2.8em; }        /* 造句 */
-body.printing .v-base .ho-onlywork .blank
-body.printing .v-sandhi .ho-onlywork .blank { height: 1.8em; }     /* 調號 */
-body.printing .tone-pair .blank { height: 1.8em; }
-body.printing table.ho-t .blank { height: 2.2em; }
-
-body.printing .ho-page { break-inside: avoid; }
-body.printing table.ho-v tbody, body.printing .ho-tw, body.printing .word-card { break-inside: avoid; }
-
 </style>
 </head>
 <body>
@@ -3075,6 +3062,7 @@ body.printing table.ho-v tbody, body.printing .ho-tw, body.printing .word-card {
    刻意寫成獨立 IIFE，不碰 v9 既有的 showSection / sectionOrder / cycleSection。
    v9 的 sectionOrder 硬編碼 6 個 section，講義區若混用 .section class 會讓
    v9 的鍵盤與左右箭頭切換出錯，所以這裡自成一套。 */
+/*! 台羅拼音系統 講義區 v27 — © 2026 詹宗龍（臺中明道中學）保留所有權利。 */
 (function () {
   'use strict';
   var D = JSON.parse(document.getElementById('handout-data').textContent);
@@ -3327,6 +3315,9 @@ body.printing table.ho-v tbody, body.printing .ho-tw, body.printing .word-card {
     if (u.rows && u.rows.length) {
       h += '<p class="ho-src">（圖片來源：由 Noun Project 合法授權予詹宗龍使用）</p>';
     }
+    // 製作者落款。27 頁都要有，所以不跟 .ho-src 綁在同一個 if 裡。
+    // 螢幕上以 CSS 隱藏，只在列印（或 body.printing 量測）時出現在紙張右下角。
+    h += '<div class="ho-credit">臺中明道中學　詹宗龍　製作</div>';
     h += '</article>';
 
     h += '<div class="ho-nav">'
@@ -3445,39 +3436,111 @@ body.printing table.ho-v tbody, body.printing .ho-tw, body.printing .word-card {
      用同一個字級印，短的那些頁下半張全是空白。所以列印前逐頁算出
      「剛好填滿 A4」的基準字級 —— 版面的每個尺寸都是相對 .ho-page 的 em，
      調這一個字級就能等比放大整頁。 */
-  var A4_H_MM = 273;                       // A4 直式扣掉 @page 的 12mm 上下邊界
+  var CONTENT_H_MM = 271;                  // .ho-page 的內容區高度（min-height 295 − 上下 padding 12×2）
+  var CREDIT_MM = 5;                       // 右下角落款預留高度，內容不可壓到
   var MM = 96 / 25.4;                      // 1mm 幾 px（CSS 定義的 96dpi）
   var PT_MIN = 6.5, PT_MAX = 15;
 
+  /* .ho-page 列印時有 min-height，量整頁會恆等於紙高、二分搜尋就失效，
+     所以量「最後一個實際內容的底緣」，並從內容區上緣（扣掉 padding-top）量起。
+     落款是 absolute 本來就不計入高度，仍顯式跳過，免得哪天改成靜態流排版時無聲失準。 */
+  function contentH(page) {
+    var pad = parseFloat(getComputedStyle(page).paddingTop) || 0;
+    var top = page.getBoundingClientRect().top + pad, bot = top;
+    var kids = page.children;
+    for (var i = 0; i < kids.length; i++) {
+      if (kids[i].classList.contains('ho-credit')) continue;
+      var b = kids[i].getBoundingClientRect().bottom;
+      if (b > bot) bot = b;
+    }
+    return bot - top;
+  }
+
   function fitPage(page) {
-    var limit = A4_H_MM * MM;
+    var limit = (CONTENT_H_MM - CREDIT_MM) * MM;
     var lo = PT_MIN, hi = PT_MAX, best = PT_MIN;
     // 二分搜尋：找出塞得下的最大字級。10 次已經精確到 0.01pt
     for (var k = 0; k < 10; k++) {
       var mid = (lo + hi) / 2;
       page.style.fontSize = mid + 'pt';
-      if (page.getBoundingClientRect().height <= limit) { best = mid; lo = mid; }
+      if (contentH(page) <= limit) { best = mid; lo = mid; }
       else hi = mid;
     }
     page.style.fontSize = best + 'pt';
   }
 
+  /* 列印樣式表（#hoPrintCss）平常 media="print"，螢幕上不生效。量測時切成 "all"，
+     螢幕上套的就是與紙上完全同一份規則 —— 這是 v27 拿掉手抄第二份的關鍵，
+     v26 那份抄漏一個逗號（調號格 2.4em vs 1.8em），字級就算小了、紙上留一大片空白。 */
+  var printCss = document.getElementById('hoPrintCss');
+  function printLayout(on) {
+    if (printCss) printCss.media = on ? 'all' : 'print';
+    document.body.classList.toggle('printing', on);
+  }
+
+  /* 列印／另存 PDF 的預設檔名取自 document.title。
+     單頁 → 「6.聲母-舌齒音_詹宗龍版權所有」；全部 → 「台語羅馬字拼音系統_詹宗龍版權所有」。
+     檔名不能有 \ / : * ? " < > |（\u005C 就是反斜線），
+     單元標題目前沒有這些字，還是先濾過再用。 */
+  var OWNER = '_詹宗龍版權所有';
+  var pageTitle = document.title;
+  function printName(all) {
+    if (all) return '台語羅馬字拼音系統' + OWNER;
+    var u = D.units[cur] || {};
+    return (cur + 1) + '.' + String(u.title || '').replace(/[\u005C\/:*?"<>|]/g, '') + OWNER;
+  }
+
+  /* 還原標題的時機要小心。Chrome 的 afterprint 是「預覽產生完」就發，不是關掉才發；
+     而「另存為 PDF」的檔名是使用者按下儲存、系統對話框開起來的那一刻才去拿
+     document.title。一在 afterprint 就還原，Chrome 拿到的是原標題
+     「台羅拼音系統 | Tâi-lô Phing-im」—— 裡頭的 | 是 Windows 檔名禁用字，
+     被清掉之後檔名欄就整個空白（v27 第一版的症狀）。
+     所以改成：存檔對話框關掉、視窗重新取得焦點後才還原，另留 60 秒保險。 */
+  var TITLE_SETTLE_MS = 250;               // 等新標題送到瀏覽器行程再叫 print()
+  var titleTimer = null;
+
+  /* 還原標題的時機要小心。Chrome 的 afterprint 是「預覽產生完」就發，不是關掉才發；
+     而存檔對話框（Chrome 的「另存為 PDF」或 Windows 驅動如 Microsoft Print to PDF）
+     是之後才開的，那一刻才去拿 document.title 當檔名。一在 afterprint 就還原，
+     瀏覽器拿到的是原標題「台羅拼音系統 | Tâi-lô Phing-im」—— 裡頭的 | 是 Windows
+     檔名禁用字，被清掉之後檔名欄就整個空白。
+     所以改成：存檔對話框關掉、視窗重新取得焦點後才還原，另留 60 秒保險。 */
+  function restoreTitle() {
+    if (titleTimer) { clearTimeout(titleTimer); titleTimer = null; }
+    window.removeEventListener('focus', restoreTitle);
+    document.title = pageTitle;
+  }
+  function setPrintTitle(all) {
+    if (titleTimer) { clearTimeout(titleTimer); titleTimer = null; }
+    window.removeEventListener('focus', restoreTitle);
+    document.title = printName(all);
+  }
+  function restoreTitleLater() {
+    if (titleTimer) clearTimeout(titleTimer);
+    window.removeEventListener('focus', restoreTitle);
+    window.addEventListener('focus', restoreTitle);
+    titleTimer = setTimeout(restoreTitle, 60000);
+  }
+
   var fitted = false;
-  function beforePrint() {
+  function beforePrint(all) {
+    setPrintTitle(all === true);
     if (fitted) return;
-    document.body.classList.add('printing');
-    // 量測要在 printing 版面下做，.ho-page 這時已是 190mm 寬（跟紙一樣）
+    printLayout(true);
+    // 量測要在列印版面下做，.ho-page 這時已是 190mm 寬（跟紙一樣）
     var pages = app.querySelectorAll('.ho-page');
     for (var i = 0; i < pages.length; i++) fitPage(pages[i]);
     fitted = true;
   }
   function afterPrint() {
-    document.body.classList.remove('printing');
+    restoreTitleLater();
+    printLayout(false);
     var pages = app.querySelectorAll('.ho-page');
     for (var i = 0; i < pages.length; i++) pages[i].style.fontSize = '';
     fitted = false;
   }
-  // 使用者直接按 Ctrl+P 也要套用（不會經過下面的按鈕）
+  // 使用者直接按 Ctrl+P 也要套用（不會經過下面的按鈕）。
+  // 事件物件會被當成第一個參數傳進去，所以 beforePrint 只認 all === true。
   window.addEventListener('beforeprint', beforePrint);
   window.addEventListener('afterprint', afterPrint);
 
@@ -3496,13 +3559,19 @@ body.printing table.ho-v tbody, body.printing .ho-tw, body.printing .word-card {
     }
 
     // 先排好版再叫列印：有些瀏覽器在 beforeprint 裡改 DOM 來不及反映到這一次
-    beforePrint();
+    beforePrint(all === true);
     window.addEventListener('afterprint', function restore() {
       window.removeEventListener('afterprint', restore);
       afterPrint();
       if (keep !== null) { cur = keepCur; body.innerHTML = keep; renderPage(); }
     });
-    window.print();
+
+    /* 「另存為 PDF」的檔名不是由網頁直接給的，是瀏覽器行程在建立列印預覽時
+       去問「這個分頁的標題」。而 document.title 的更新是非同步送到瀏覽器行程的，
+       跟 print() 的請求走不同的管線 —— 在 beforeprint 裡才改標題，經常來不及，
+       瀏覽器就拿到舊標題（原標題含 |，是 Windows 檔名禁用字，清掉後檔名欄空白）。
+       所以這裡先把標題設好（beforePrint 已做），讓出一次事件迴圈等它送達，才叫列印。 */
+    setTimeout(function () { window.print(); }, TITLE_SETTLE_MS);
   }
 
   /* ---------- 鍵盤與簡報筆翻頁 ----------
@@ -3511,6 +3580,16 @@ body.printing table.ho-v tbody, body.printing .ho-tw, body.printing .word-card {
      切換教學區的類別。焦點在填答欄時完全不攔，左右鍵要留給游標移動。 */
   document.addEventListener('keydown', function (e) {
     if (!document.body.classList.contains('zone-handout')) return;
+    /* Ctrl+P／Cmd+P 導到「列印這頁」。不攔的話走的是瀏覽器原生列印，
+       標題來不及送到瀏覽器行程，「另存為 PDF」的檔名就會是空白或舊標題。
+       行為跟按「列印這頁」完全相同（一樣是列印當前這一頁）。 */
+    if ((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey &&
+        (e.key === 'p' || e.key === 'P')) {
+      e.preventDefault();
+      e.stopPropagation();
+      printPages(false);
+      return;
+    }
     if (e.altKey || e.ctrlKey || e.metaKey) return;
     var t = e.target;
     if (t && t.closest && t.closest('input, textarea, select, [contenteditable]')) return;
