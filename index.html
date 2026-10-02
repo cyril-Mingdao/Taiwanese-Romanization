@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================
-  台語羅馬字拼音系統（Tâi-lô Phing-im）v27
+  台語羅馬字拼音系統（Tâi-lô Phing-im）v28
   單檔離線教材：自學簡報區 ＋《台羅拼音系統學思達講義》27 單元網頁版
 
   Copyright © 2026 詹宗龍（Tsiam Tsong-liông），臺中明道中學。
@@ -3062,7 +3062,7 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
    刻意寫成獨立 IIFE，不碰 v9 既有的 showSection / sectionOrder / cycleSection。
    v9 的 sectionOrder 硬編碼 6 個 section，講義區若混用 .section class 會讓
    v9 的鍵盤與左右箭頭切換出錯，所以這裡自成一套。 */
-/*! 台羅拼音系統 講義區 v27 — © 2026 詹宗龍（臺中明道中學）保留所有權利。 */
+/*! 台羅拼音系統 講義區 v28 — © 2026 詹宗龍（臺中明道中學）保留所有權利。 */
 (function () {
   'use strict';
   var D = JSON.parse(document.getElementById('handout-data').textContent);
@@ -3592,13 +3592,25 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
     }
     if (e.altKey || e.ctrlKey || e.metaKey) return;
     var t = e.target;
-    if (t && t.closest && t.closest('input, textarea, select, [contenteditable]')) return;
+    /* v28：上方的單元選單（#hoSel）不算填答欄。選完單元焦點會留在選單上，
+       v27 這時按上下鍵是「換選單選項＝換頁」，左右鍵則完全沒反應；
+       現在選單上也照下面的規則：上下捲動、左右換頁。 */
+    var onSel = !!(t && t.id === 'hoSel');
+    if (!onSel && t && t.closest && t.closest('input, textarea, select, [contenteditable]')) return;
     var k = e.key;
+    /* v28：上下鍵一律捲動畫面（自己捲，不靠瀏覽器預設，焦點停在按鈕或選單上也有效） */
+    if (k === 'ArrowUp' || k === 'ArrowDown') {
+      e.preventDefault();
+      e.stopPropagation();
+      window.scrollBy({ top: (k === 'ArrowDown' ? 1 : -1) * 80, behavior: 'auto' });
+      return;
+    }
     var prev = (k === 'ArrowLeft' || k === 'PageUp');
     var next = (k === 'ArrowRight' || k === 'PageDown');
     if (!prev && !next) return;
     e.preventDefault();
     e.stopPropagation();
+    if (onSel) t.blur();
     go(prev ? cur - 1 : cur + 1);
   }, true);
 
