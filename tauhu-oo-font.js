@@ -1,3 +1,4 @@
+/*! 字型 Tauhu Oo 豆腐烏 © 原作者，依 SIL Open Font License 1.1 授權（https://tauhu.tw/）；外掛包裝 © 2026 詹宗龍（臺中明道中學）。 */
 /*! Tauhu Oo 20.05 Regular — SIL Open Font License 1.1 — https://tauhu.tw/
  *  台羅拼音系統 v24：字型從主檔抽出來的外掛。
  *  這個檔必須跟 tailo_final_v24.html／index.html 放在同一個資料夾。
