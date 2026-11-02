@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================
-  台語羅馬字拼音系統（Tâi-lô Phing-im）v32
+  台語羅馬字拼音系統（Tâi-lô Phing-im）v33
   單檔離線教材：自學簡報區 ＋《台羅拼音系統學思達講義》27 單元網頁版
 
   Copyright © 2026 詹宗龍（Tsiam Tsong-liông），臺中明道中學。
@@ -862,6 +862,12 @@ main { max-width: 1400px; margin: 0 auto; padding: 2rem; }
             border-bottom: 2px solid var(--primary);
         }
         .slide h3 { color: var(--gold); font-size: 1.3rem; margin: 1rem 0; }
+        /* v33：三疊詞 AAA 規則與「無變第9調」範例 */
+        .aaa-rule { margin: -0.4rem 0 0.8rem; color: var(--text-secondary); }
+        .aaa-rule b, .aaa-no9 b, .aaa-no9-table td.no9 { color: #e00000; }
+        .aaa-no9 { margin: 1.4rem 0 0.6rem; font-weight: 700; display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+        .aaa-no9 .tag { background: #e00000; color: #ffffff; border-radius: 6px; padding: 0.15rem 0.6rem; font-size: 0.9rem; }
+        .aaa-no9-table td.no9 { font-weight: 700; }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -2978,7 +2984,7 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
 
             <div class="slide">
                 <h2>特殊變調 - 第9調</h2>
-                <p>外來語和三疊詞中出現的特殊高調</p>
+                <h3>外來語和三疊詞中出現的特殊高調</h3>
                 <table>
                     <tr><th>華語解釋</th><th>讀音</th><th>調號</th></tr>
                     <tr><td>打招呼、問候</td><td>a̋i-sat-tsuh</td><td>9-8-4</td></tr>
@@ -2986,11 +2992,19 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                     <tr><td>方向盤</td><td>ha̋n-tóo-luh</td><td>9-1-4</td></tr>
                 </table>
                 <h3 style="margin-top: 2rem;">三疊詞的第9調</h3>
+                <p class="aaa-rule">（<b>AAA</b>：1578→9、234→原變調規則）</p>
                 <table>
                     <tr><th>三疊</th><th>讀音</th><th>調號</th></tr>
                     <tr><td>紅紅紅</td><td>a̋ng-âng-âng</td><td>9-7-5</td></tr>
                     <tr><td>白白白</td><td>pe̋h-pe̍h-pe̍h</td><td>9-3-8</td></tr>
                     <tr><td>烏烏烏</td><td>őo-oo-oo</td><td>9-7-1</td></tr>
+                </table>
+                <p class="aaa-no9"><span class="tag">特別注意</span>本調 2、3、4 的三疊詞<b>無變第9調</b>，照原變調規則</p>
+                <table class="aaa-no9-table">
+                    <tr><th>三疊</th><th>讀音</th><th>調號</th></tr>
+                    <tr><td>久久久</td><td>kú-kú-kú</td><td class="no9">1-1-2</td></tr>
+                    <tr><td>散散散</td><td>suànn-suànn-suànn</td><td class="no9">2-2-3</td></tr>
+                    <tr><td>肉肉肉</td><td>bah-bah-bah</td><td class="no9">2-2-4</td></tr>
                 </table>
                 <h3 style="margin-top: 2rem;">連讀合音</h3>
                 <table>
