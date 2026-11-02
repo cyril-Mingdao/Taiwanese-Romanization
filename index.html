@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================
-  台語羅馬字拼音系統（Tâi-lô Phing-im）v34
+  台語羅馬字拼音系統（Tâi-lô Phing-im）v35
   單檔離線教材：自學簡報區 ＋《台羅拼音系統學思達講義》27 單元網頁版
 
   Copyright © 2026 詹宗龍（Tsiam Tsong-liông），臺中明道中學。
@@ -20,7 +20,8 @@
   【引用來源】
   臺羅發音播放引用 oikasu 製作之 snd.js（https://oikasu1.github.io/snd/），程式與音檔著作權屬原作者；
   其中部分音檔取自中華民國教育部《臺灣台語常用詞辭典》。
-  三疊詞（AAA）變調規則參考國家教育研究院「臺灣台語語料庫應用檢索系統」語法 053-02（https://tggl.naer.edu.tw/grammars?n=100）。
+  特殊變調（三疊詞第9調、固定輕聲、連讀合音、變調特例、數字讀法）部分內容參考國家教育研究院
+  「臺灣台語語料庫應用檢索系統」語法點（https://tggl.naer.edu.tw/grammars?n=100），各處標註對應編號。
   前述引用之他人作品，著作權仍屬各原權利人。
 -->
 <html lang="zh-TW">
@@ -871,6 +872,9 @@ main { max-width: 1400px; margin: 0 auto; padding: 2rem; }
         .aaa-no9-table td.no9 { font-weight: 700; }
         .aaa-src { font-weight: 400; font-size: 0.9rem; color: var(--text-secondary); }
         .aaa-src a { color: var(--gold); text-decoration: underline; }
+        /* v35：國教院語法點出處（表格內小字） */
+        .gram-src { display: block; margin-top: 0.2rem; font-size: 0.82rem; font-weight: 400; color: var(--text-secondary); }
+        .gram-src a { color: var(--gold); text-decoration: underline; }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -2962,10 +2966,12 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                     <tr><td>莊頭名/家族名</td><td>李家 lí--ka、王家 ông--ka</td></tr>
                     <tr><td>稱謂詞尾</td><td>吳先生 ngôo--sian-sinn</td></tr>
                     <tr><td>時間詞尾</td><td>日時 ji̍t--sî、暝時 mê--sî</td></tr>
-                    <tr><td>動詞後壁補語</td><td>寒著 kuânn--tio̍h</td></tr>
+                    <tr><td>動詞後壁補語</td><td>寒著 kuânn--tio̍h<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">065-03</a></span></td></tr>
                     <tr><td>代名詞做受詞</td><td>予你 hōo--lí、罵阮 mā--gún</td></tr>
-                    <tr><td>數量補語</td><td>眠一下 bîn--tsi̍t-ē</td></tr>
+                    <tr><td>數量補語</td><td>眠一下 bîn--tsi̍t-ē<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">067-01</a></span></td></tr>
                     <tr><td>句尾助詞</td><td>莫吵啦 mài tshá--lah</td></tr>
+                    <tr><td>方向補語（句尾）</td><td>行出來 kiânn--tshut-lâi、提去 the̍h--khì、坐落來 tsē--lo̍h-lâi<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">116-01～119-05</a></span></td></tr>
+                    <tr><td>句尾疑問詞</td><td>好無？ hó--bô、欲毋？ beh--m̄<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">036-01</a>、<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">040-01</a></span></td></tr>
                 </table>
             </div>
 
@@ -3009,12 +3015,23 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                     <tr><td>散散散</td><td>suànn-suànn-suànn</td><td class="no9">2-2-3</td></tr>
                     <tr><td>肉肉肉</td><td>bah-bah-bah</td><td class="no9">2-2-4</td></tr>
                 </table>
+                <h3 style="margin-top: 2rem;">強調語氣的第9調</h3>
+                <table>
+                    <tr><th>語詞</th><th>讀音</th><th>說明</th></tr>
+                    <tr><td>偌（偌＋形容＋咧）</td><td>gua̋-nī-á</td><td>加強語氣，如「偌媠咧」<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">029-01</a></span></td></tr>
+                </table>
                 <h3 style="margin-top: 2rem;">連讀合音</h3>
                 <table>
                     <tr><th>語詞</th><th>原讀音</th><th>合音</th></tr>
                     <tr><td>無要緊</td><td>bô iàu-kín</td><td>bua̋-kín</td></tr>
                     <tr><td>昨昏</td><td>tsa-hng</td><td>tsa̋ng</td></tr>
                     <tr><td>查某囝</td><td>tsa-bóo-kiánn</td><td>tsa̋u-kiánn</td></tr>
+                    <tr><td>啥人</td><td>siánn lâng</td><td>siáng、siâng<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">043-01</a></span></td></tr>
+                    <tr><td>來去</td><td>lâi khì</td><td>laih<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">095-01</a></span></td></tr>
+                    <tr><td>予人</td><td>hōo lâng</td><td>hōng、hông<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">109-04</a></span></td></tr>
+                    <tr><td>予伊</td><td>hōo i</td><td>hoo<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">109-05</a></span></td></tr>
+                    <tr><td>共伊</td><td>kā i</td><td>ka<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">108-02</a></span></td></tr>
+                    <tr><td>一下（如：較緊咧）</td><td>tsi̍t-ē</td><td>leh<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">027-01</a></span></td></tr>
                 </table>
             </div>
 
@@ -3025,6 +3042,31 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                     <tr><td>--ah(啊/矣)</td><td>好啊！</td><td>好矣，莫閣講矣</td><td>好啊！</td></tr>
                     <tr><td>--ooh(喔)</td><td>真有名喔</td><td>莫叫我去啦</td><td>著你矣喔</td></tr>
                     <tr><td>--looh(囉)</td><td>食飯囉</td><td>食飯囉</td><td>食飯囉</td></tr>
+                </table>
+            </div>
+
+            <div class="slide">
+                <h2>變調特例</h2>
+                <p>「落尾字無變調」、「頭前字照規則變調」嘛有例外</p>
+                <table>
+                    <tr><th>語詞／情境</th><th>讀法</th><th>說明</th></tr>
+                    <tr><td>甲（補語省略）</td><td>句尾「甲」讀變調</td><td>表程度懸、後壁的補語省略，「甲」雖然佇句尾猶原讀變調<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">061-01</a></span></td></tr>
+                    <tr><td>閣（句尾）</td><td>句尾「閣」讀變調</td><td>「閣」後壁的話省略，表達強調的語氣<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">064-05</a></span></td></tr>
+                    <tr><td>是講</td><td>「講」讀變調</td><td>提起話題或語氣轉折<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">090-01</a></span></td></tr>
+                    <tr><td>總是（無論如何／毋過）</td><td>tsóng--sī</td><td>「總」讀本調、「是」讀輕聲<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">137-01</a></span></td></tr>
+                    <tr><td>總是（同華語「總是」）</td><td>tsóng-sī</td><td>兩字攏照變調規則讀<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">137-02</a></span></td></tr>
+                    <tr><td>以＋方位（以上、以下、以內、以外）</td><td>「以」頭前的字讀本調</td><td>如「十歲以下」的「歲」讀本調<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">133-01</a></span></td></tr>
+                </table>
+            </div>
+
+            <div class="slide">
+                <h2>數字讀法的變調</h2>
+                <table>
+                    <tr><th>情境</th><th>讀法規則</th></tr>
+                    <tr><td>公元年</td><td>1000 年以前照數數字的方法讀；1001 年以後用文讀音讀，「0」多讀 khòng；四位數的第 2 个數字讀本調（教會全部照數數字的方法讀）<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">021-04</a></span></td></tr>
+                    <tr><td>電話號碼</td><td>對頭起 2 碼抑 3 碼做一組，4 碼拆做 2＋2，每組做一个變調組，如 09#12#-345#-678#（# 為變調組界線）<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">023-01</a></span></td></tr>
+                    <tr><td>加減乘除</td><td>「加、減、乘、除、等於」讀變調，數字讀本調，如「一加二等於三」；九九乘法「三二六」則「三」讀變調，「二、六」讀本調<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">127-01</a></span></td></tr>
+                    <tr><td>小數點</td><td>小數點後只有一位：1、2 讀 it、jī，3 以上讀白讀音（3.5 唸 sann tiám gōo）；兩位以上全讀文讀音（3.52 唸 sann tiám ngóo jī）。除了最後一个數字，頭前的數字佮「點」攏讀變調<span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">128-01</a></span></td></tr>
                 </table>
             </div>
         </section>
