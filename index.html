@@ -1146,6 +1146,12 @@ main { max-width: 1400px; margin: 0 auto; padding: 2rem; }
             .vowel-grid { grid-template-columns: repeat(3, 1fr); }
         }
     
+        /* v40：橫式畫面聲母總覽與發音說明左右並排對照 */
+        @media screen and (orientation: landscape) and (min-width: 900px) {
+            .consonant-overview { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.5rem; align-items: start; margin: 1rem 0; }
+            .consonant-overview > .consonant-section { margin: 0; }
+            .consonant-overview > .highlight-box { margin: 0 !important; }
+        }
         /* v39：聲母／韻母羅馬字卡點播發音（音檔共用 spell 拼音遊戲） */
         .tl-say { cursor: pointer; transition: background-color 0.18s ease, transform 0.18s ease; }
         .tl-say:hover { background-color: rgba(255,212,0,0.28); }
@@ -2002,6 +2008,7 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
             <div class="slide">
                 <h2>聲母總覽</h2>
                 <p>總共有17个聲母加上1个零聲母</p>
+                <div class="consonant-overview">
                 <div class="consonant-section">
                     <div class="consonant-row">
                         <span class="consonant-label">合唇音</span>
@@ -2054,6 +2061,7 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                         <li><strong>舌根音</strong>：舌根共氣流窒咧，才閣共聲音發出來</li>
                         <li><strong>舌齒音</strong>：共舌尖倚近頭前頂排牙齒</li>
                     </ul>
+                </div>
                 </div>
             </div>
 
