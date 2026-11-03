@@ -1146,6 +1146,13 @@ main { max-width: 1400px; margin: 0 auto; padding: 2rem; }
             .vowel-grid { grid-template-columns: repeat(3, 1fr); }
         }
     
+        /* v39：聲母／韻母羅馬字卡點播發音（音檔共用 spell 拼音遊戲） */
+        .tl-say { cursor: pointer; transition: background-color 0.18s ease, transform 0.18s ease; }
+        .tl-say:hover { background-color: rgba(255,212,0,0.28); }
+        .tl-say.tl-playing { background-color: #FFD400; color: #111111; }
+        .tl-say.tl-playing .roman, .tl-say.tl-playing .bpmf { color: #111111; }
+        span.tl-say { border-radius: 4px; padding: 0 0.12em; }
+
         /* Clickable cards (audio) */
         .word-card { cursor: pointer; transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease; }
         .word-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.10); border-left-color: var(--gold); }
@@ -1894,11 +1901,11 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                             <div class="compare-table-wrap">
                                 <table class="compare-table roman" role="table" aria-label="台語聲母對照表">
                                     <tbody>
-                                        <tr><td><span class="roman-letter">p</span>(ㄅ)</td><td><span class="roman-letter">ph</span>(ㄆ)</td><td><span class="roman-letter">m</span>(ㄇ)</td><td><span class="roman-letter">b</span></td></tr>
-                                        <tr><td><span class="roman-letter">t</span>(ㄉ)</td><td><span class="roman-letter">th</span>(ㄊ)</td><td><span class="roman-letter">n</span>(ㄋ)</td><td><span class="roman-letter">l</span>(ㄌ)</td></tr>
-                                        <tr><td><span class="roman-letter">k</span>(ㄍ)</td><td><span class="roman-letter">kh</span>(ㄎ)</td><td><span class="roman-letter">ng</span></td><td><span class="roman-letter">g</span></td></tr>
-                                        <tr><td><span class="roman-letter">ts</span>(ㄗ)</td><td><span class="roman-letter">tsh</span>(ㄘ)</td><td><span class="roman-letter">s</span>(ㄙ)</td><td><span class="roman-letter">j</span>(ㄖ)</td></tr>
-                                        <tr><td><span class="roman-letter">h</span>(ㄏ)</td><td></td><td></td><td></td></tr>
+                                        <tr><td><span class="roman-letter tl-say" data-initial="p">p</span>(ㄅ)</td><td><span class="roman-letter tl-say" data-initial="ph">ph</span>(ㄆ)</td><td><span class="roman-letter tl-say" data-initial="m">m</span>(ㄇ)</td><td><span class="roman-letter tl-say" data-initial="b">b</span></td></tr>
+                                        <tr><td><span class="roman-letter tl-say" data-initial="t">t</span>(ㄉ)</td><td><span class="roman-letter tl-say" data-initial="th">th</span>(ㄊ)</td><td><span class="roman-letter tl-say" data-initial="n">n</span>(ㄋ)</td><td><span class="roman-letter tl-say" data-initial="l">l</span>(ㄌ)</td></tr>
+                                        <tr><td><span class="roman-letter tl-say" data-initial="k">k</span>(ㄍ)</td><td><span class="roman-letter tl-say" data-initial="kh">kh</span>(ㄎ)</td><td><span class="roman-letter tl-say" data-initial="ng">ng</span></td><td><span class="roman-letter tl-say" data-initial="g">g</span></td></tr>
+                                        <tr><td><span class="roman-letter tl-say" data-initial="ts">ts</span>(ㄗ)</td><td><span class="roman-letter tl-say" data-initial="tsh">tsh</span>(ㄘ)</td><td><span class="roman-letter tl-say" data-initial="s">s</span>(ㄙ)</td><td><span class="roman-letter tl-say" data-initial="j">j</span>(ㄖ)</td></tr>
+                                        <tr><td><span class="roman-letter tl-say" data-initial="h">h</span>(ㄏ)</td><td></td><td></td><td></td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -1999,43 +2006,43 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                     <div class="consonant-row">
                         <span class="consonant-label">合唇音</span>
                         <div class="consonant-items">
-                            <div class="consonant-pair"><div class="roman">p</div><div class="bpmf">ㄅ</div></div>
-                            <div class="consonant-pair"><div class="roman">ph</div><div class="bpmf">ㄆ</div></div>
-                            <div class="consonant-pair"><div class="roman">m</div><div class="bpmf">ㄇ</div></div>
-                            <div class="consonant-pair"><div class="roman">b</div><div class="bpmf">-</div></div>
+                            <div class="consonant-pair tl-say" data-initial="p"><div class="roman">p</div><div class="bpmf">ㄅ</div></div>
+                            <div class="consonant-pair tl-say" data-initial="ph"><div class="roman">ph</div><div class="bpmf">ㄆ</div></div>
+                            <div class="consonant-pair tl-say" data-initial="m"><div class="roman">m</div><div class="bpmf">ㄇ</div></div>
+                            <div class="consonant-pair tl-say" data-initial="b"><div class="roman">b</div><div class="bpmf">-</div></div>
                         </div>
                     </div>
                     <div class="consonant-row">
                         <span class="consonant-label">舌尖音</span>
                         <div class="consonant-items">
-                            <div class="consonant-pair"><div class="roman">t</div><div class="bpmf">ㄉ</div></div>
-                            <div class="consonant-pair"><div class="roman">th</div><div class="bpmf">ㄊ</div></div>
-                            <div class="consonant-pair"><div class="roman">n</div><div class="bpmf">ㄋ</div></div>
-                            <div class="consonant-pair"><div class="roman">l</div><div class="bpmf">ㄌ</div></div>
+                            <div class="consonant-pair tl-say" data-initial="t"><div class="roman">t</div><div class="bpmf">ㄉ</div></div>
+                            <div class="consonant-pair tl-say" data-initial="th"><div class="roman">th</div><div class="bpmf">ㄊ</div></div>
+                            <div class="consonant-pair tl-say" data-initial="n"><div class="roman">n</div><div class="bpmf">ㄋ</div></div>
+                            <div class="consonant-pair tl-say" data-initial="l"><div class="roman">l</div><div class="bpmf">ㄌ</div></div>
                         </div>
                     </div>
                     <div class="consonant-row">
                         <span class="consonant-label">舌根音</span>
                         <div class="consonant-items">
-                            <div class="consonant-pair"><div class="roman">k</div><div class="bpmf">ㄍ</div></div>
-                            <div class="consonant-pair"><div class="roman">kh</div><div class="bpmf">ㄎ</div></div>
-                            <div class="consonant-pair"><div class="roman">ng</div><div class="bpmf">-</div></div>
-                            <div class="consonant-pair"><div class="roman">g</div><div class="bpmf">-</div></div>
+                            <div class="consonant-pair tl-say" data-initial="k"><div class="roman">k</div><div class="bpmf">ㄍ</div></div>
+                            <div class="consonant-pair tl-say" data-initial="kh"><div class="roman">kh</div><div class="bpmf">ㄎ</div></div>
+                            <div class="consonant-pair tl-say" data-initial="ng"><div class="roman">ng</div><div class="bpmf">-</div></div>
+                            <div class="consonant-pair tl-say" data-initial="g"><div class="roman">g</div><div class="bpmf">-</div></div>
                         </div>
                     </div>
                     <div class="consonant-row">
                         <span class="consonant-label">舌齒音</span>
                         <div class="consonant-items">
-                            <div class="consonant-pair"><div class="roman">ts</div><div class="bpmf">ㄗ</div></div>
-                            <div class="consonant-pair"><div class="roman">tsh</div><div class="bpmf">ㄘ</div></div>
-                            <div class="consonant-pair"><div class="roman">s</div><div class="bpmf">ㄙ</div></div>
-                            <div class="consonant-pair"><div class="roman">j</div><div class="bpmf">ㄖ</div></div>
+                            <div class="consonant-pair tl-say" data-initial="ts"><div class="roman">ts</div><div class="bpmf">ㄗ</div></div>
+                            <div class="consonant-pair tl-say" data-initial="tsh"><div class="roman">tsh</div><div class="bpmf">ㄘ</div></div>
+                            <div class="consonant-pair tl-say" data-initial="s"><div class="roman">s</div><div class="bpmf">ㄙ</div></div>
+                            <div class="consonant-pair tl-say" data-initial="j"><div class="roman">j</div><div class="bpmf">ㄖ</div></div>
                         </div>
                     </div>
                     <div class="consonant-row">
                         <span class="consonant-label">喉音</span>
                         <div class="consonant-items">
-                            <div class="consonant-pair"><div class="roman">h</div><div class="bpmf">ㄏ</div></div>
+                            <div class="consonant-pair tl-say" data-initial="h"><div class="roman">h</div><div class="bpmf">ㄏ</div></div>
                         </div>
                     </div>
                 </div>
@@ -2271,12 +2278,12 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                 <h2>元音韻母 - 單元音</h2>
                 <p>由一個元音構成的韻母</p>
                 <div class="vowel-grid" style="margin-top: 2rem;">
-                    <div class="vowel-item"><div class="roman">a</div><div class="bpmf">ㄚ</div></div>
-                    <div class="vowel-item"><div class="roman">i</div><div class="bpmf">一</div></div>
-                    <div class="vowel-item"><div class="roman">u</div><div class="bpmf">ㄨ</div></div>
-                    <div class="vowel-item"><div class="roman">e</div><div class="bpmf">ㄝ</div></div>
-                    <div class="vowel-item"><div class="roman">oo</div><div class="bpmf">ㄛ</div></div>
-                    <div class="vowel-item"><div class="roman">o</div><div class="bpmf">ㄜ</div></div>
+                    <div class="vowel-item tl-say" data-final="a"><div class="roman">a</div><div class="bpmf">ㄚ</div></div>
+                    <div class="vowel-item tl-say" data-final="i"><div class="roman">i</div><div class="bpmf">一</div></div>
+                    <div class="vowel-item tl-say" data-final="u"><div class="roman">u</div><div class="bpmf">ㄨ</div></div>
+                    <div class="vowel-item tl-say" data-final="e"><div class="roman">e</div><div class="bpmf">ㄝ</div></div>
+                    <div class="vowel-item tl-say" data-final="oo"><div class="roman">oo</div><div class="bpmf">ㄛ</div></div>
+                    <div class="vowel-item tl-say" data-final="o"><div class="roman">o</div><div class="bpmf">ㄜ</div></div>
                 </div>
                                 <div class="word-examples">
                     <div class="word-card">
@@ -2323,8 +2330,8 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                 <h2>元音韻母 - 複元音</h2>
                 <p>由多個元音構成的韻母</p>
                 <table style="margin-top: 1.5rem;">
-                    <tr><td>ai</td><td>au</td><td>ia</td><td>iu</td><td>io</td></tr>
-                    <tr><td>ua</td><td>ue</td><td>iau</td><td>ui</td><td>uai</td></tr>
+                    <tr><td class="tl-say" data-final="ai">ai</td><td class="tl-say" data-final="au">au</td><td class="tl-say" data-final="ia">ia</td><td class="tl-say" data-final="iu">iu</td><td class="tl-say" data-final="io">io</td></tr>
+                    <tr><td class="tl-say" data-final="ua">ua</td><td class="tl-say" data-final="ue">ue</td><td class="tl-say" data-final="iau">iau</td><td class="tl-say" data-final="ui">ui</td><td class="tl-say" data-final="uai">uai</td></tr>
                 </table>
                                 <div class="word-examples">
                     <div class="word-card">
@@ -2395,8 +2402,8 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                 <h2>鼻化元音</h2>
                 <p>發音的時陣氣流對喙空佮鼻空同齊流出的元音（共12個）</p>
                 <table style="margin-top: 1.5rem;">
-                    <tr><td>ann</td><td>inn</td><td>enn</td><td>onn</td><td>ainn</td><td>aunn</td></tr>
-                    <tr><td>iann</td><td>iunn</td><td>uinn</td><td>iaunn</td><td>uann</td><td>uainn</td></tr>
+                    <tr><td class="tl-say" data-final="ann">ann</td><td class="tl-say" data-final="inn">inn</td><td class="tl-say" data-final="enn">enn</td><td class="tl-say" data-final="onn">onn</td><td class="tl-say" data-final="ainn">ainn</td><td class="tl-say" data-final="aunn">aunn</td></tr>
+                    <tr><td class="tl-say" data-final="iann">iann</td><td class="tl-say" data-final="iunn">iunn</td><td class="tl-say" data-final="uinn">uinn</td><td class="tl-say" data-final="iaunn">iaunn</td><td class="tl-say" data-final="uann">uann</td><td class="tl-say" data-final="uainn">uainn</td></tr>
                 </table>
                             <div class="word-examples">
                     <div class="word-card">
@@ -2478,15 +2485,15 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
                     <div class="highlight-box">
                         <h4>m 鼻音（4個）</h4>
-                        <p>am、im、om、iam</p>
+                        <p><span class="tl-say" data-final="am">am</span>、<span class="tl-say" data-final="im">im</span>、<span class="tl-say" data-final="om">om</span>、<span class="tl-say" data-final="iam">iam</span></p>
                     </div>
                     <div class="highlight-box">
                         <h4>n 鼻音（5個）</h4>
-                        <p>an、in、un、ian、uan</p>
+                        <p><span class="tl-say" data-final="an">an</span>、<span class="tl-say" data-final="in">in</span>、<span class="tl-say" data-final="un">un</span>、<span class="tl-say" data-final="ian">ian</span>、<span class="tl-say" data-final="uan">uan</span></p>
                     </div>
                     <div class="highlight-box">
                         <h4>ng 鼻音（6個）</h4>
-                        <p>ang、ing、ong、iang、iong、uang</p>
+                        <p><span class="tl-say" data-final="ang">ang</span>、<span class="tl-say" data-final="ing">ing</span>、<span class="tl-say" data-final="ong">ong</span>、<span class="tl-say" data-final="iang">iang</span>、<span class="tl-say" data-final="iong">iong</span>、<span class="tl-say" data-final="uang">uang</span></p>
                     </div>
                 </div>
                             <div class="word-examples">
@@ -2587,19 +2594,19 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem;">
                     <div class="highlight-box">
                         <h4>h 入聲（13個）</h4>
-                        <p style="font-size: 0.9rem;">ah、ih、uh、eh、oh、auh、iah、iuh、ioh、uah、uih、ueh、iauh</p>
+                        <p style="font-size: 0.9rem;"><span class="tl-say" data-final="ah">ah</span>、<span class="tl-say" data-final="ih">ih</span>、<span class="tl-say" data-final="uh">uh</span>、<span class="tl-say" data-final="eh">eh</span>、<span class="tl-say" data-final="oh">oh</span>、<span class="tl-say" data-final="auh">auh</span>、<span class="tl-say" data-final="iah">iah</span>、<span class="tl-say" data-final="iuh">iuh</span>、<span class="tl-say" data-final="ioh">ioh</span>、<span class="tl-say" data-final="uah">uah</span>、<span class="tl-say" data-final="uih">uih</span>、<span class="tl-say" data-final="ueh">ueh</span>、<span class="tl-say" data-final="iauh">iauh</span></p>
                     </div>
                     <div class="highlight-box">
                         <h4>p 入聲（4個）</h4>
-                        <p>ap、ip、op、iap</p>
+                        <p><span class="tl-say" data-final="ap">ap</span>、<span class="tl-say" data-final="ip">ip</span>、<span class="tl-say" data-final="op">op</span>、<span class="tl-say" data-final="iap">iap</span></p>
                     </div>
                     <div class="highlight-box">
                         <h4>t 入聲（5個）</h4>
-                        <p>at、it、ut、iat、uat</p>
+                        <p><span class="tl-say" data-final="at">at</span>、<span class="tl-say" data-final="it">it</span>、<span class="tl-say" data-final="ut">ut</span>、<span class="tl-say" data-final="iat">iat</span>、<span class="tl-say" data-final="uat">uat</span></p>
                     </div>
                     <div class="highlight-box">
                         <h4>k 入聲（5個）</h4>
-                        <p>ak、ik、ok、iak、iok</p>
+                        <p><span class="tl-say" data-final="ak">ak</span>、<span class="tl-say" data-final="ik">ik</span>、<span class="tl-say" data-final="ok">ok</span>、<span class="tl-say" data-final="iak">iak</span>、<span class="tl-say" data-final="iok">iok</span></p>
                     </div>
                 </div>
                             <div class="word-examples">
@@ -3232,6 +3239,43 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
     document.addEventListener('keydown', function (e) {
         if (!overlay.hidden && e.key === 'Escape') { e.stopPropagation(); close(); }
     }, true);
+})();
+</script>
+<script>
+/*! 台羅拼音系統 聲母／韻母點播 v39 — © 2026 詹宗龍（臺中明道中學）保留所有權利。
+    音檔共用「羅馬字拼音互動遊戲」https://cyril-mingdao.github.io/spell/（詹宗龍老師自錄）。 */
+(function () {
+    var BASE = 'https://cyril-mingdao.github.io/spell/audio/';
+    var audio = null, current = null;
+    function stop() {
+        if (audio) { try { audio.pause(); } catch (e) {} audio = null; }
+        if (current) { current.classList.remove('tl-playing'); current = null; }
+    }
+    function play(el) {
+        var ini = el.getAttribute('data-initial'), fin = el.getAttribute('data-final');
+        var url = BASE + (ini ? 'initial/' + ini : 'final/' + fin) + '.mp3';
+        stop();
+        audio = new Audio(url); current = el;
+        el.classList.add('tl-playing');
+        var a = audio;
+        function done() { if (audio === a) stop(); }
+        a.addEventListener('ended', done);
+        a.addEventListener('error', done);
+        a.play().catch(done);
+    }
+    document.addEventListener('click', function (e) {
+        var el = e.target.closest && e.target.closest('.tl-say');
+        if (el) play(el);
+    });
+    document.addEventListener('keydown', function (e) {
+        if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('tl-say')) {
+            e.preventDefault(); play(e.target);
+        }
+    });
+    document.querySelectorAll('.tl-say').forEach(function (el) {
+        el.setAttribute('role', 'button'); el.tabIndex = 0;
+        el.title = '點一下聽發音';
+    });
 })();
 </script>
 </body>
