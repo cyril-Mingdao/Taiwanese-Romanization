@@ -1146,6 +1146,9 @@ main { max-width: 1400px; margin: 0 auto; padding: 2rem; }
             .vowel-grid { grid-template-columns: repeat(3, 1fr); }
         }
     
+        /* v43：自學說明文字改取講義原文 */
+        .slide p.hd { margin: 0.35rem 0; line-height: 1.8; }
+        .highlight-box p.box-note { margin-top: 0.6rem; font-size: 0.92rem; line-height: 1.7; color: var(--text-secondary); }
         /* v41：橫式畫面把發音說明放到各列聲母後方（同一列對照）；直式與列印仍用下方說明框 */
         .consonant-note { display: none; }
         @media screen and (orientation: landscape) and (min-width: 900px) {
@@ -2009,7 +2012,7 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
         <section id="consonants" class="section">
             <div class="slide">
                 <h2>聲母總覽</h2>
-                <p>總共有17个聲母加上1个零聲母</p>
+                <p class="hd">總共有17个<span class="gl">(個)</span>聲母閣<span class="gl">(再)</span>加上１个零聲母。</p>
                 <div class="consonant-overview">
                 <div class="consonant-section">
                     <div class="consonant-row">
@@ -2292,7 +2295,8 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
         <section id="vowels" class="section">
             <div class="slide">
                 <h2>元音韻母 - 單元音</h2>
-                <p>由一個元音構成的韻母</p>
+                <p class="hd"><strong>元音韻母</strong>：韻母是一个<span class="gl">(個)</span>音節中除了聲母以外的部分。伊<span class="gl">(它)</span>必須愛<span class="gl">(要)</span>包含響音，一般是元音。</p>
+                <p class="hd"><strong>單元音</strong>：由一個元音構成的韻母。</p>
                 <div class="vowel-grid" style="margin-top: 2rem;">
                     <div class="vowel-item tl-say" data-final="a"><div class="roman">a</div><div class="bpmf">ㄚ</div></div>
                     <div class="vowel-item tl-say" data-final="i"><div class="roman">i</div><div class="bpmf">一</div></div>
@@ -2344,7 +2348,8 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
 
             <div class="slide">
                 <h2>元音韻母 - 複元音</h2>
-                <p>由多個元音構成的韻母</p>
+                <p class="hd"><strong>元音韻母</strong>：韻母是一个<span class="gl">(個)</span>音節中除了聲母以外的部分。伊<span class="gl">(它)</span>必須愛<span class="gl">(要)</span>包含響音，一般是元音。</p>
+                <p class="hd"><strong>複元音</strong>：由濟个<span class="gl">(多個)</span>元音構成的韻母。</p>
                 <table style="margin-top: 1.5rem;">
                     <tr><td class="tl-say" data-final="ai">ai</td><td class="tl-say" data-final="au">au</td><td class="tl-say" data-final="ia">ia</td><td class="tl-say" data-final="iu">iu</td><td class="tl-say" data-final="io">io</td></tr>
                     <tr><td class="tl-say" data-final="ua">ua</td><td class="tl-say" data-final="ue">ue</td><td class="tl-say" data-final="iau">iau</td><td class="tl-say" data-final="ui">ui</td><td class="tl-say" data-final="uai">uai</td></tr>
@@ -2416,7 +2421,7 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
 
             <div class="slide">
                 <h2>鼻化元音</h2>
-                <p>發音的時陣氣流對喙空佮鼻空同齊流出的元音（共12個）</p>
+                <p class="hd"><strong>鼻化元音</strong>：有12个<span class="gl">(個)</span>，發音的時陣<span class="gl">(時候)</span>氣流對<span class="gl">(從)</span>喙空<span class="gl">(口腔)</span>佮<span class="gl">(和)</span>鼻空<span class="gl">(鼻腔)</span>同齊<span class="gl">(同時)</span>流出的元音。</p>
                 <table style="margin-top: 1.5rem;">
                     <tr><td class="tl-say" data-final="ann">ann</td><td class="tl-say" data-final="inn">inn</td><td class="tl-say" data-final="enn">enn</td><td class="tl-say" data-final="onn">onn</td><td class="tl-say" data-final="ainn">ainn</td><td class="tl-say" data-final="aunn">aunn</td></tr>
                     <tr><td class="tl-say" data-final="iann">iann</td><td class="tl-say" data-final="iunn">iunn</td><td class="tl-say" data-final="uinn">uinn</td><td class="tl-say" data-final="iaunn">iaunn</td><td class="tl-say" data-final="uann">uann</td><td class="tl-say" data-final="uainn">uainn</td></tr>
@@ -2497,19 +2502,22 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                 </div>
 </div><div class="slide">
                 <h2>鼻音韻母</h2>
-                <p>由元音佮鼻輔音 m、n、ng 等三个結合的韻母</p>
+                <p class="hd"><strong>鼻音韻母</strong>：由元音佮<span class="gl">(和)</span>鼻輔音m、n、ng等三个結合的韻母。</p>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
                     <div class="highlight-box">
                         <h4>m 鼻音（4個）</h4>
                         <p><span class="tl-say" data-final="am">am</span>、<span class="tl-say" data-final="im">im</span>、<span class="tl-say" data-final="om">om</span>、<span class="tl-say" data-final="iam">iam</span></p>
+                        <p class="box-note">m鼻音有４个<span class="gl">(個)</span>，發音的時陣<span class="gl">(時候)</span>，愛先發頭前<span class="gl">(前面)</span>的元音，接紲<span class="gl">(緊接)</span>合唇，氣流對<span class="gl">(從)</span>鼻空<span class="gl">(鼻腔)</span>出來。</p>
                     </div>
                     <div class="highlight-box">
                         <h4>n 鼻音（5個）</h4>
                         <p><span class="tl-say" data-final="an">an</span>、<span class="tl-say" data-final="in">in</span>、<span class="tl-say" data-final="un">un</span>、<span class="tl-say" data-final="ian">ian</span>、<span class="tl-say" data-final="uan">uan</span></p>
+                        <p class="box-note">n鼻音有５个<span class="gl">(個)</span>，發音的時陣<span class="gl">(時候)</span>，愛先發頭前<span class="gl">(前面)</span>的元音，接紲<span class="gl">(緊接)</span>就共<span class="gl">(把)</span>舌尖囥佇<span class="gl">(放在)</span>頭前<span class="gl">(前面)</span>頂<span class="gl">(上)</span>，氣流對<span class="gl">(從)</span>鼻空<span class="gl">(鼻腔)</span>佮喙空<span class="gl">(口腔)</span>出來。</p>
                     </div>
                     <div class="highlight-box">
                         <h4>ng 鼻音（6個）</h4>
                         <p><span class="tl-say" data-final="ang">ang</span>、<span class="tl-say" data-final="ing">ing</span>、<span class="tl-say" data-final="ong">ong</span>、<span class="tl-say" data-final="iang">iang</span>、<span class="tl-say" data-final="iong">iong</span>、<span class="tl-say" data-final="uang">uang</span></p>
+                        <p class="box-note">ng鼻音有６个<span class="gl">(個)</span>，發音的時陣<span class="gl">(時候)</span> ，愛先發頭前<span class="gl">(前面)</span>的元音，接紲<span class="gl">(緊接)</span>共喙舌<span class="gl">(舌頭)</span>向後搝<span class="gl">(拉)</span>，氣流對<span class="gl">(從)</span>鼻空<span class="gl">(鼻腔)</span>佮喙空<span class="gl">(口腔)</span>出來。</p>
                     </div>
                 </div>
                             <div class="word-examples">
@@ -2606,23 +2614,27 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                 </div>
 </div><div class="slide">
                 <h2>入聲韻母</h2>
-                <p>發聲時音短閣急停，h、p、t、k 四个字母囥佇音節的上後面</p>
+                <p class="hd"><strong>入聲韻母</strong>：發聲時，音短閣<span class="gl">(又)</span>急停，h、p、t、k四个<span class="gl">(個)</span>字母囥佇<span class="gl">(放在)</span>音節的上<span class="gl">(最)</span>後面。</p>
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem;">
                     <div class="highlight-box">
                         <h4>h 入聲（13個）</h4>
                         <p style="font-size: 0.9rem;"><span class="tl-say" data-final="ah">ah</span>、<span class="tl-say" data-final="ih">ih</span>、<span class="tl-say" data-final="uh">uh</span>、<span class="tl-say" data-final="eh">eh</span>、<span class="tl-say" data-final="oh">oh</span>、<span class="tl-say" data-final="auh">auh</span>、<span class="tl-say" data-final="iah">iah</span>、<span class="tl-say" data-final="iuh">iuh</span>、<span class="tl-say" data-final="ioh">ioh</span>、<span class="tl-say" data-final="uah">uah</span>、<span class="tl-say" data-final="uih">uih</span>、<span class="tl-say" data-final="ueh">ueh</span>、<span class="tl-say" data-final="iauh">iauh</span></p>
+                        <p class="box-note">h入聲有13个<span class="gl">(個)</span>發音的時陣<span class="gl">(時候)</span>短促急停，喙<span class="gl">(嘴)</span>微微仔<span class="gl">(稍微)</span>褫開<span class="gl">(張開)</span>。</p>
                     </div>
                     <div class="highlight-box">
                         <h4>p 入聲（4個）</h4>
                         <p><span class="tl-say" data-final="ap">ap</span>、<span class="tl-say" data-final="ip">ip</span>、<span class="tl-say" data-final="op">op</span>、<span class="tl-say" data-final="iap">iap</span></p>
+                        <p class="box-note">p入聲有4个<span class="gl">(個)</span>發音的時陣<span class="gl">(時候)</span>短促急停，了後<span class="gl">(之後)</span>喙唇<span class="gl">(嘴唇)</span>收束合起來。</p>
                     </div>
                     <div class="highlight-box">
                         <h4>t 入聲（5個）</h4>
                         <p><span class="tl-say" data-final="at">at</span>、<span class="tl-say" data-final="it">it</span>、<span class="tl-say" data-final="ut">ut</span>、<span class="tl-say" data-final="iat">iat</span>、<span class="tl-say" data-final="uat">uat</span></p>
+                        <p class="box-note">t入聲有５个<span class="gl">(個)</span>發音的時陣<span class="gl">(時候)</span>短促急停，了後<span class="gl">(之後)</span>共<span class="gl">(把)</span>舌尖囥佇<span class="gl">(放在)</span>頭前<span class="gl">(前面)</span>頂<span class="gl">(上)</span>、下排喙齒<span class="gl">(牙齒)</span>交界的所在<span class="gl">(地方)</span>。</p>
                     </div>
                     <div class="highlight-box">
                         <h4>k 入聲（5個）</h4>
                         <p><span class="tl-say" data-final="ak">ak</span>、<span class="tl-say" data-final="ik">ik</span>、<span class="tl-say" data-final="ok">ok</span>、<span class="tl-say" data-final="iak">iak</span>、<span class="tl-say" data-final="iok">iok</span></p>
+                        <p class="box-note">k入聲有５个<span class="gl">(個)</span>發音的時陣<span class="gl">(時候)</span>短促急停，嚨喉<span class="gl">(喉嚨)</span>有束喉的現象。</p>
                     </div>
                 </div>
                             <div class="word-examples">
@@ -2798,7 +2810,9 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
 </div>
             <div class="slide">
                 <h2>聲化韻母</h2>
-                <p>m、ng 這兩个字母家己就會當成一个音節，發音的時陣氣流對鼻空出來，毋免閣配別的元音。</p>
+                <p class="hd"><strong>聲化韻母</strong>：有m、ng兩个<span class="gl">(個)</span>字母。</p>
+                <p class="hd">m發音的時陣<span class="gl">(時候)</span>喙唇<span class="gl">(嘴唇)</span>合起來，氣流對<span class="gl">(從)</span>鼻空<span class="gl">(孔)</span>洩出來。</p>
+                <p class="hd">ng發音的時陣<span class="gl">(時候)</span>喙舌<span class="gl">(舌頭)</span>向後，氣流對鼻空<span class="gl">(鼻孔)</span>洩出來。</p>
                 <div class="word-examples">
                     <div class="word-card">
                         <div class="word">毋通</div>
@@ -2820,7 +2834,7 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
         <section id="tones" class="section">
             <div class="slide">
                 <h2>台語的七聲八調</h2>
-                <p>總共有8个聲，因為第2聲佮第6聲仝款發音，所以共敆做伙，干焦標示7个聲調</p>
+                <p class="hd">攏總有8个聲，毋過<span class="gl">(不過)</span>因為第2聲佮第6聲仝款發音，所以共<span class="gl">(把)</span>𪜶<span class="gl">(它們)</span>敆做伙<span class="gl">(合一起)</span>，干焦<span class="gl">(只有)</span>標示7个聲調，通稱8聲7調，聲調是相對的，毋是<span class="gl">(不是)</span>絕對的，每一个人發出的音攏<span class="gl">(都)</span>有略略仔<span class="gl">(一點點)</span>差別。</p>
                 <div class="animal-cards">
                     <div class="animal-card" style="border-color: var(--tone1);">
                         <div class="tone tone-1">1</div>
@@ -2987,6 +3001,7 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
         <section id="special" class="section">
             <div class="slide">
                 <h2>固定輕聲</h2>
+                <p class="hd"><strong>變調規則</strong>：頭前<span class="gl">(前面)</span>的詞唸原調，上<span class="gl">(最)</span>後壁<span class="gl">(後面)</span>的詞唸接近第3調。</p>
                 <table>
                     <tr><th>類別</th><th>例詞</th></tr>
                     <tr><td>莊頭名/家族名</td><td>李家 lí--ka、王家 ông--ka</td></tr>
@@ -3003,6 +3018,8 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
 
             <div class="slide">
                 <h2>「仔á」前變調</h2>
+                <p class="hd">頭前<span class="gl">(前面)</span>的詞若是原調第2、3、4調，拄著仔á，就愛變做唸第1調。</p>
+                <p class="hd">頭前<span class="gl">(前面)</span>的詞若是原調第1、5、7、8調，拄著仔á，就愛變做唸第7調。</p>
                 <table>
                     <tr><th>本調</th><th>變調</th><th>例1</th><th>例2</th><th>例3</th></tr>
                     <tr><td>2</td><td rowspan="3">1</td><td>鳥仔 tsiáu-á</td><td>囡仔 gín-á</td><td>筍仔 sún-á</td></tr>
@@ -3019,6 +3036,9 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
 
             <div class="slide">
                 <h2>特殊變調 - 第9調</h2>
+                <p class="hd"><strong>合音</strong>：共字的音合做伙唸，通常是唸做第9調。</p>
+                <p class="hd"><strong>形容詞三疊</strong>：上懸級的形容，第1的字會唸做第9調。</p>
+                <p class="hd"><strong>外來詞</strong>：舉例日本時代留來落來的詞，部份的詞第1的字會唸做第9調。</p>
                 <h3>外來語和三疊詞中出現的特殊高調</h3>
                 <table>
                     <tr><th>華語解釋</th><th>讀音</th><th>本調</th><th>變調</th></tr>
@@ -3063,6 +3083,10 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
 
             <div class="slide">
                 <h2>語氣詞變調</h2>
+                <p class="hd">按照語境有無仝款的氣口。</p>
+                <p class="hd">後壁的詞變第1調：語氣完結<span class="gl">(認同)</span>、加強語氣、語氣完結<span class="gl">(好氣口)</span></p>
+                <p class="hd">後壁的詞變第3調：不耐煩、勉強答應、無願意、語氣完結<span class="gl">(䆀氣口)</span></p>
+                <p class="hd">後壁的詞變第7調：語氣完結<span class="gl">(無意見)</span>、氣口平平、語氣完結<span class="gl">(平氣口)</span></p>
                 <table>
                     <tr><th>類別</th><th>變1（認同）</th><th>變3（不耐煩）</th><th>變7（無意見）</th></tr>
                     <tr><td>--ah(啊/矣)</td><td>好啊！</td><td>好矣，莫閣講矣</td><td>好啊！</td></tr>
