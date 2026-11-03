@@ -1146,11 +1146,13 @@ main { max-width: 1400px; margin: 0 auto; padding: 2rem; }
             .vowel-grid { grid-template-columns: repeat(3, 1fr); }
         }
     
-        /* v40：橫式畫面聲母總覽與發音說明左右並排對照 */
+        /* v41：橫式畫面把發音說明放到各列聲母後方（同一列對照）；直式與列印仍用下方說明框 */
+        .consonant-note { display: none; }
         @media screen and (orientation: landscape) and (min-width: 900px) {
-            .consonant-overview { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.5rem; align-items: start; margin: 1rem 0; }
-            .consonant-overview > .consonant-section { margin: 0; }
-            .consonant-overview > .highlight-box { margin: 0 !important; }
+            .consonant-overview .consonant-row { flex-wrap: nowrap; }
+            .consonant-overview .consonant-items { flex: 0 0 auto; width: 19rem; flex-wrap: nowrap; }
+            .consonant-overview .consonant-note { display: block; flex: 1 1 auto; line-height: 1.6; color: var(--text-primary); }
+            .consonant-overview > .highlight-box { display: none; }
         }
         /* v39：聲母／韻母羅馬字卡點播發音（音檔共用 spell 拼音遊戲） */
         .tl-say { cursor: pointer; transition: background-color 0.18s ease, transform 0.18s ease; }
@@ -2018,6 +2020,7 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                             <div class="consonant-pair tl-say" data-initial="m"><div class="roman">m</div><div class="bpmf">ㄇ</div></div>
                             <div class="consonant-pair tl-say" data-initial="b"><div class="roman">b</div><div class="bpmf">-</div></div>
                         </div>
+                        <span class="consonant-note">雙唇合起來，共氣流擋咧，才閣共雙唇褫開發出聲音</span>
                     </div>
                     <div class="consonant-row">
                         <span class="consonant-label">舌尖音</span>
@@ -2027,6 +2030,7 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                             <div class="consonant-pair tl-say" data-initial="n"><div class="roman">n</div><div class="bpmf">ㄋ</div></div>
                             <div class="consonant-pair tl-say" data-initial="l"><div class="roman">l</div><div class="bpmf">ㄌ</div></div>
                         </div>
+                        <span class="consonant-note">共舌尖囥佇頭前頂下排喙齒交界的所在</span>
                     </div>
                     <div class="consonant-row">
                         <span class="consonant-label">舌根音</span>
@@ -2036,6 +2040,7 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                             <div class="consonant-pair tl-say" data-initial="ng"><div class="roman">ng</div><div class="bpmf">-</div></div>
                             <div class="consonant-pair tl-say" data-initial="g"><div class="roman">g</div><div class="bpmf">-</div></div>
                         </div>
+                        <span class="consonant-note">舌根共氣流窒咧，才閣共聲音發出來</span>
                     </div>
                     <div class="consonant-row">
                         <span class="consonant-label">舌齒音</span>
@@ -2045,12 +2050,14 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                             <div class="consonant-pair tl-say" data-initial="s"><div class="roman">s</div><div class="bpmf">ㄙ</div></div>
                             <div class="consonant-pair tl-say" data-initial="j"><div class="roman">j</div><div class="bpmf">ㄖ</div></div>
                         </div>
+                        <span class="consonant-note">共舌尖倚近頭前頂排牙齒</span>
                     </div>
                     <div class="consonant-row">
                         <span class="consonant-label">喉音</span>
                         <div class="consonant-items">
                             <div class="consonant-pair tl-say" data-initial="h"><div class="roman">h</div><div class="bpmf">ㄏ</div></div>
                         </div>
+                        <span class="consonant-note">有發音的動作，毋過(不過)無(沒有)發出聲音</span>
                     </div>
                 </div>
                 <div class="highlight-box">
@@ -2060,6 +2067,7 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
                         <li><strong>舌尖音</strong>：共舌尖囥佇頭前頂下排喙齒交界的所在</li>
                         <li><strong>舌根音</strong>：舌根共氣流窒咧，才閣共聲音發出來</li>
                         <li><strong>舌齒音</strong>：共舌尖倚近頭前頂排牙齒</li>
+                        <li><strong>喉音</strong>：有發音的動作，毋過(不過)無(沒有)發出聲音</li>
                     </ul>
                 </div>
                 </div>
