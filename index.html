@@ -1146,6 +1146,8 @@ main { max-width: 1400px; margin: 0 auto; padding: 2rem; }
             .vowel-grid { grid-template-columns: repeat(3, 1fr); }
         }
     
+        /* v45：數字讀法表的「情境」欄不斷行（電話號碼、加減乘除） */
+        .slide table.label-nowrap th:first-child, .slide table.label-nowrap td:first-child { white-space: nowrap; }
         /* v43：自學說明文字改取講義原文 */
         .slide p.hd { margin: 0.35rem 0; line-height: 1.8; }
         .highlight-box p.box-note { margin-top: 0.6rem; font-size: 0.92rem; line-height: 1.7; color: var(--text-secondary); }
@@ -3111,7 +3113,7 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
 
             <div class="slide">
                 <h2>數字讀法的變調</h2>
-                <table>
+                <table class="label-nowrap">
                     <tr><th>情境</th><th>讀法規則</th></tr>
                     <tr><td>公元年</td><td>1000 年以前照數數字的方法讀；1001 年以後用文讀音讀，「0」多讀 khòng；四位數的第 2 个數字讀本調（教會全部照數數字的方法讀）<span class="gram-ex">例：「一九九九年發生九二一地動」</span><span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">021-04</a></span></td></tr>
                     <tr><td>電話號碼</td><td>對頭起 2 碼抑 3 碼做一組，4 碼拆做 2＋2，每組做一个變調組，如 09#12#-345#-678#（# 為變調組界線）<span class="gram-ex">例：「阮兜的電話號碼是空四四九六二九八四」</span><span class="gram-src">國家教育研究院&gt;臺灣台語語料庫應用檢索系統&gt;<a href="https://tggl.naer.edu.tw/grammars?n=100" target="_blank" rel="noopener">023-01</a></span></td></tr>
