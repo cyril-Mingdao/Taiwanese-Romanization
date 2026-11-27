@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--
   ============================================================
-  台語羅馬字拼音系統（Tâi-lô Phing-im）v47
-  單檔離線教材：自學簡報區 ＋《台羅拼音系統學思達講義》27 單元網頁版
+  台語羅馬字拼音系統（Tâi-lô Phing-im）v48
+  網頁教材（index.html ＋ img／fonts 資料夾）：自學簡報區 ＋《台羅拼音系統學思達講義》27 單元網頁版
 
   Copyright © 2026 詹宗龍（Tsiam Tsong-liông），臺中明道中學。
   保留所有權利 All rights reserved.
@@ -14,8 +14,8 @@
     - 例詞圖與變調環圖：由 Noun Project 合法授權予詹宗龍使用，
       不隨本檔另行授權他人使用。
     - 字型：豆腐烏 Tauhu Oo 20.05 子集（https://tauhu.tw/ ，SIL Open Font License 1.1，見 fonts/OFL.txt）。
-    - 發音音檔：教育部《臺灣台語常用詞辭典》（sutian.moe.edu.tw）等遠端來源，
-      本檔僅內嵌索引，著作權歸原權利人。
+    - 發音音檔：中華民國教育部《臺灣台語常用詞辭典》（sutian.moe.edu.tw）官方錄音，
+      由 snd-plus.js 即時連結播放，本檔不含音檔，著作權屬教育部。
   ============================================================
   【引用來源】
   臺羅發音播放使用自製 snd-plus.js（https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js），
@@ -35,9 +35,8 @@
     <meta name="copyright" content="© 2026 詹宗龍，臺中明道中學。保留所有權利。">
     <meta name="description" content="台語羅馬字拼音系統：自學簡報與學思達講義 27 單元互動練習，可離線使用、可列印 A4。">
     <!-- Google Fonts 已移除（v11）：全站統一 tauhu-oo，留著只會拖慢離線載入 -->
-    <!-- 字型外掛（v24）：defer 不擋 HTML 解析。原本這裡還有一條
-         https://tauhu.tw/tauhu-oo.css 的外部樣式表，字型明明已經在本機，
-         那條卻是 render-blocking，網路慢或被學校擋住時會卡住首次繪製，已移除。 -->
+    <!-- 字型（v47）：豆腐烏 Tauhu Oo 子集 fonts/tauhu-oo-sub.woff2，只收本站用到的字，
+         不再用 base64；發音（v47）：自製 snd-plus.js，教育部整詞錄音優先。 -->
     <link rel="preload" href="fonts/tauhu-oo-sub.woff2" as="font" type="font/woff2" crossorigin>
     <style>@font-face{font-family:"TauhuOoSub";src:url("fonts/tauhu-oo-sub.woff2") format("woff2");font-weight:400;font-display:swap}</style>
     <script src="https://cyril-mingdao.github.io/taigi-class-games/assets/snd-plus.js"></script>
@@ -592,11 +591,9 @@ main { max-width: 1400px; margin: 0 auto; padding: 2rem; }
         }
 
 
-/* ===== Tauhu Oo（v24 抽成外掛）=====
-   字型改由同目錄的 tauhu-oo-font.js 以 <script defer> 注入 @font-face。
-   原本這段 base64 佔全檔 72%（4.37 MB），6 MB 的 HTML 要整份解析完才會
-   繪製，是載入慢的主因。抽出去之後主檔約 1.67 MB，畫面先出來、字型再補上。
-   缺了那支 .js 只會退回下面的 fallback 字型，教材內容不受影響。 */
+/* ===== Tauhu Oo（v47）=====
+   字型為同目錄 fonts/tauhu-oo-sub.woff2（豆腐烏子集，字型名 TauhuOoSub），
+   在 <head> 以 @font-face 宣告並 preload。缺檔時退回下面的 fallback 字型，教材內容不受影響。 */
 
 /* 全站統一字體。表單元素預設不繼承 font-family，偽元素也要一起指定，
    否則填答欄與 ::before 的字會掉回系統字型而缺字。 */
@@ -2538,7 +2535,7 @@ table.ho-v tbody, .ho-tw, .word-card { break-inside: avoid; }
         document.getElementById('prevCategory').addEventListener('click', () => cycleSection(-1));
         document.getElementById('nextCategory').addEventListener('click', () => cycleSection(1));
 
-        // Card audio (snd.js): tap/click any card to play its romanization
+        // Card audio (snd-plus.js): tap/click any card to play its romanization
         function __extractTailoFromCard(card) {
             const el = card.querySelector('.romanization') || card.querySelector('.roman');
             if (!el) return '';
